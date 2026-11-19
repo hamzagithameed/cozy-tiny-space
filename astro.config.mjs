@@ -14,8 +14,8 @@ export default defineConfig({
   site: 'https://cozytinyspace.com',
   trailingSlash: 'ignore',
 
-  // Hybrid output for Keystatic admin
-  output: 'hybrid',
+  // Static output - Keystatic will work in local mode
+  output: 'static',
 
   integrations: [
     mdx(),
