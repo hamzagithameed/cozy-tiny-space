@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-import cloudflare from '@astrojs/cloudflare';
+// import cloudflare from '@astrojs/cloudflare'; // Removed for static build
 import keystatic from '@keystatic/astro';
 import react from '@astrojs/react';
 
