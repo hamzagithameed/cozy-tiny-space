@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import cloudflare from '@astrojs/cloudflare';
 import keystatic from '@keystatic/astro';
 import react from '@astrojs/react';
 
@@ -14,8 +15,9 @@ export default defineConfig({
   site: 'https://cozytinyspace.pages.dev',
   trailingSlash: 'ignore',
 
-  // Static output - Keystatic will work in local mode
-  output: 'static',
+  // Hybrid output - Static pages + Keystatic admin with Cloudflare adapter
+  output: 'hybrid',
+  adapter: cloudflare(),
 
   integrations: [
     mdx(),
