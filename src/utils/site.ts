@@ -15,7 +15,7 @@ export const CATEGORY_LABELS: Record<string, string> = {
   'bedroom-closet-storage': 'Bedroom & Closet Storage',
   'bathroom-storage': 'Bathroom Storage',
   'living-room-entryway-storage': 'Living Room & Entryway Storage',
-  'renter-friendly-solutions': 'Renter-Friendly Solutions',
+  'renter-guides': 'Renter Guides',
 };
 
 export const CATEGORY_ORDER = [
@@ -23,5 +23,5 @@ export const CATEGORY_ORDER = [
   'bedroom-closet-storage',
   'bathroom-storage',
   'living-room-entryway-storage',
-  'renter-friendly-solutions',
+  'renter-guides',
 ] as const;

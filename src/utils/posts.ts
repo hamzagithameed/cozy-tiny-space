@@ -2,6 +2,15 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export type Article = CollectionEntry<'articles'>;
 
+/**
+ * Content-layer entry ids carry the file extension ('no-drill-....mdx',
+ * 'hamza-hameed.md'). URL slugs must not — strip it everywhere an id
+ * becomes a path, or links and the generated pages disagree.
+ */
+export function slugOf(id: string): string {
+  return id.replace(/\.(mdx|md)$/, '');
+}
+
 export async function getPublishedArticles(): Promise<Article[]> {
   const all = await getCollection(
     'articles',
@@ -11,7 +20,7 @@ export async function getPublishedArticles(): Promise<Article[]> {
 }
 
 export function articleUrl(article: Article): string {
-  return `/${article.data.category}/${article.id}/`;
+  return `/${article.data.category}/${slugOf(article.id)}/`;
 }
 
 export function readingTime(text: string): number {
@@ -45,9 +54,9 @@ export function getRelatedPosts(current: Article, all: Article[], count = 3): Ar
     if (post.data.category === current.data.category || picked.length === 0) picked.push(post);
   }
   // Guarantee one method guide when the article is room-based.
-  if (current.data.category !== 'renter-friendly-solutions') {
+  if (current.data.category !== 'renter-guides') {
     const method = others.find(
-      (p) => p.data.category === 'renter-friendly-solutions' && !picked.includes(p),
+      (p) => p.data.category === 'renter-guides' && !picked.includes(p),
     );
     if (method) {
       if (picked.length >= count) picked.pop();
