@@ -1,15 +1,17 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { slugOf } from '../utils/posts';
 
 interface Props {
   author: CollectionEntry<'authors'>;
 }
 const { author } = Astro.props;
 const { data } = author;
+const authorSlug = slugOf(author.id);
 ---
 
 <aside class="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6 sm:flex-row sm:items-start" aria-label="About the author">
-  <a href={`/authors/${author.id}/`} class="shrink-0">
+  <a href={`/authors/${authorSlug}/`} class="shrink-0">
     <img
       src={data.avatar}
       alt={`Photo of ${data.name}`}
@@ -23,7 +25,7 @@ const { data } = author;
   <div>
     <p class="text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-muted">Written by</p>
     <p class="mt-1 font-display text-xl font-semibold text-ink">
-      <a href={`/authors/${author.id}/`} class="no-underline hover:text-accent-dark">{data.name}</a>
+      <a href={`/authors/${authorSlug}/`} class="no-underline hover:text-accent-dark">{data.name}</a>
     </p>
     <p class="text-[0.9rem] font-medium text-accent-dark">{data.role}</p>
     <p class="mt-2 text-[0.95rem] leading-relaxed text-ink-soft">{data.bio}</p>
