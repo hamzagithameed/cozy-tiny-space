@@ -2,26 +2,27 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
-import { getPublishedArticles } from '../../utils/posts';
+import { getPublishedArticles, slugOf } from '../../utils/posts';
 
 export async function getStaticPaths() {
   const authors = await getCollection('authors');
-  return authors.map((author) => ({ params: { author: author.id }, props: { author } }));
+  return authors.map((author) => ({ params: { author: slugOf(author.id) }, props: { author } }));
 }
 
 const { author } = Astro.props;
+const authorSlug = slugOf(author.id);
 const { Content } = await render(author);
-const articles = (await getPublishedArticles()).filter((a) => a.data.author === author.id);
+const articles = (await getPublishedArticles()).filter((a) => a.data.author === authorSlug);
 ---
 
 <BaseLayout
   title={`${author.data.name} — ${author.data.role}`}
   description={author.data.bio}
-  canonicalPath={`/authors/${author.id}/`}
+  canonicalPath={`/authors/${authorSlug}/`}
   image={author.data.avatar}
   breadcrumbs={[
     { name: 'Home', url: '/' },
-    { name: author.data.name, url: `/authors/${author.id}/` },
+    { name: author.data.name, url: `/authors/${authorSlug}/` },
   ]}
 >
   <div class="mx-auto max-w-3xl px-4 pb-4 pt-10">
