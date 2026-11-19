@@ -23,10 +23,9 @@ export default defineConfig({
     mdx(),
     react(),
     keystatic(),
-    sitemap({
-      // Search and admin pages are not public landing pages.
-      filter: (page) => !page.includes('/search') && !page.includes('/keystatic'),
-    }),
+    // sitemap({ // Temporarily disabled - causing build error
+    //   filter: (page) => !page.includes('/search') && !page.includes('/keystatic'),
+    // }),
   ],
 
   vite: {
