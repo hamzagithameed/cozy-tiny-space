@@ -15,16 +15,13 @@ export default defineConfig({
   site: 'https://cozytinyspace.pages.dev',
   trailingSlash: 'ignore',
 
-  // Hybrid output - Static pages + Keystatic admin with Cloudflare adapter
-  output: 'hybrid',
-  adapter: cloudflare({
-    mode: 'directory',
-  }),
+  // Static output for Cloudflare Pages
+  output: 'static',
 
   integrations: [
     mdx(),
     react(),
-    keystatic(),
+    // keystatic(), // Disabled for static deployment - admin panel via local dev only
     // sitemap({ // Temporarily disabled - causing build error
     //   filter: (page) => !page.includes('/search') && !page.includes('/keystatic'),
     // }),
