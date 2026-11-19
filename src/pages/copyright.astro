@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../utils/site';
+---
+
+<BaseLayout
+  title="Copyright & Takedown"
+  description="Cozy Tiny Space image policy: our own photos, licensed stock, or written permission with credit. How creators can request a correction or removal."
+  canonicalPath="/copyright/"
+>
+  <div class="mx-auto max-w-3xl px-4 pb-4 pt-10">
+    <h1 class="font-display text-[clamp(2rem,5vw,3rem)] font-semibold tracking-tight text-ink">
+      Copyright &amp; Takedown
+    </h1>
+    <div class="mt-6 space-y-6 leading-relaxed text-ink-soft">
+      <p>
+        {SITE.name} is built on a simple rule: <strong>credit is not
+        permission.</strong> Images published on this site are our own
+        photographs, stock licensed for this use, or a creator's work used
+        with their written permission and a visible credit line linking back
+        to the original.
+      </p>
+      <section>
+        <h2 class="font-display text-[1.35rem] font-semibold text-ink">Embedded content</h2>
+        <p class="mt-2">
+          Some articles include official platform embeds (for example, an
+          Instagram post shown through Instagram's own embed code). Embedded
+          content remains on the creator's account and under their control —
+          if they delete the post, it disappears here too. An embed is never
+          the only visual in an article, and we never download, re-upload or
+          alter embedded media.
+        </p>
+      </section>
+      <section>
+        <h2 class="font-display text-[1.35rem] font-semibold text-ink">If you are a creator</h2>
+        <p class="mt-2">
+          If your work appears on this site and you would like the credit
+          changed, a link corrected, or the image or embed removed, email
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with the page URL
+          and your post URL. Our policy is <strong>remove first, discuss
+          second</strong>: the item comes down while we check, normally
+          within two business days, and every request is logged.
+        </p>
+      </section>
+      <section>
+        <h2 class="font-display text-[1.35rem] font-semibold text-ink">DMCA notices</h2>
+        <p class="mt-2">
+          Copyright holders or their agents can send a takedown notice to
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with: your name
+          and contact details, the work you own, the exact page URL on this
+          site, and a good-faith statement that the use is not authorised.
+          Valid notices are acted on promptly, and repeat infringers — if any
+          ever appear here — lose access permanently.
+        </p>
+      </section>
+      <section>
+        <h2 class="font-display text-[1.35rem] font-semibold text-ink">Our own content</h2>
+        <p class="mt-2">
+          The text, diagrams and original photographs on this site belong to
+          {SITE.name}. You may quote short excerpts with a link back; please
+          do not republish full articles or our original images without
+          asking first.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

@@ -19,20 +19,20 @@ interface Props {
 const { category } = Astro.props;
 const { Content } = await render(category);
 
-const articles = (await getPublishedArticles()).filter((a) => a.data.category === category.id);
+const articles = (await getPublishedArticles()).filter((a) => a.data.category === category.data.slug);
 const pillar = articles.find((a) => a.data.pillar);
 const supporting = articles.filter((a) => !a.data.pillar);
 const relatedCategorySlug =
-  CATEGORY_ORDER[(CATEGORY_ORDER.indexOf(category.id as (typeof CATEGORY_ORDER)[number]) + 1) % CATEGORY_ORDER.length];
+  CATEGORY_ORDER[(CATEGORY_ORDER.indexOf(category.data.slug as (typeof CATEGORY_ORDER)[number]) + 1) % CATEGORY_ORDER.length];
 ---
 
 <BaseLayout
   title={`${category.data.name} for Renters`}
   description={category.data.description}
-  canonicalPath={`/${category.id}/`}
+  canonicalPath={`/${category.data.slug}/`}
   breadcrumbs={[
     { name: 'Home', url: '/' },
-    { name: category.data.name, url: `/${category.id}/` },
+    { name: category.data.name, url: `/${category.data.slug}/` },
   ]}
 >
   <div class="mx-auto max-w-6xl px-4 pb-4 pt-10">
@@ -98,8 +98,8 @@ const relatedCategorySlug =
 
     <p class="mt-10 text-[0.98rem]">
       Looking for the methods behind these fixes?
-      <a href="/renter-friendly-solutions/" class="font-semibold"> See renter-friendly solutions →</a>
-      {relatedCategorySlug !== 'renter-friendly-solutions' && (
+      <a href="/renter-guides/" class="font-semibold"> See renter-friendly solutions →</a>
+      {relatedCategorySlug !== 'renter-guides' && (
         <>
           {' '}Or browse <a href={`/${relatedCategorySlug}/`} class="font-semibold">{CATEGORY_LABELS[relatedCategorySlug]}</a>.
         </>

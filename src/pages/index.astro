@@ -8,15 +8,24 @@ import { CATEGORY_LABELS, CATEGORY_ORDER, SITE } from '../utils/site';
 
 const articles = await getPublishedArticles();
 const categories = await getCollection('categories');
-const categoryBySlug = new Map(categories.map((c) => [c.id, c]));
+const categoryBySlug = new Map(categories.map((c) => [c.data.slug, c]));
 
 const pillars = CATEGORY_ORDER.map(
   (slug) => articles.find((a) => a.data.category === slug && a.data.pillar)!,
 ).filter(Boolean);
 const latest = articles.slice(0, 6);
 const methodGuides = articles
-  .filter((a) => a.data.category === 'renter-friendly-solutions')
+  .filter((a) => a.data.category === 'renter-guides')
   .slice(0, 4);
+
+const problemChips = [
+  { label: 'No closet?', href: '/bedroom-closet-storage/no-closet-bedroom-storage-create-wardrobe/' },
+  { label: "Can't drill?", href: '/renter-guides/no-drill-shelves-apartment-walls-compared/' },
+  { label: 'No pantry?', href: '/kitchen-storage/small-apartment-pantry-organization-no-pantry/' },
+  { label: 'Tiny bathroom?', href: '/bathroom-storage/renter-friendly-bathroom-storage-ideas-tiny-bathrooms/' },
+  { label: 'Shoes everywhere?', href: '/living-room-entryway-storage/small-apartment-shoe-storage-without-drilling/' },
+  { label: 'No entryway?', href: '/living-room-entryway-storage/create-drop-zone-small-rental-no-entryway/' },
+];
 ---
 
 <BaseLayout
@@ -24,7 +33,7 @@ const methodGuides = articles
   description={SITE.description}
   canonicalPath="/"
 >
-  <!-- 1. Hero -->
+  <!-- 1. Hero + search + problem chips -->
   <section class="mx-auto max-w-6xl px-4 pb-10 pt-10 sm:pt-14">
     <div class="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
       <div>
@@ -39,19 +48,34 @@ const methodGuides = articles
           Every solution is removable, every measurement is real, and nothing here
           puts your deposit at risk.
         </p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a
-            href="#browse-by-room"
-            class="rounded-full bg-accent px-6 py-3 font-semibold text-white no-underline transition hover:bg-accent-dark"
-          >
-            Browse by room
-          </a>
-          <a
-            href="/renter-friendly-solutions/"
-            class="rounded-full border border-ink/20 bg-surface px-6 py-3 font-semibold text-ink no-underline transition hover:border-accent hover:text-accent-dark"
-          >
-            No-drill solutions
-          </a>
+        <form action="/search/" method="get" role="search" class="mt-6 max-w-xl">
+          <label for="hero-search" class="sr-only">Search the guides</label>
+          <div class="flex overflow-hidden rounded-full border border-line bg-surface focus-within:border-accent">
+            <input
+              id="hero-search"
+              type="search"
+              name="q"
+              placeholder="Search 30 guides — try “tension rod” or “under-bed”…"
+              autocomplete="off"
+              class="w-full flex-1 bg-transparent px-5 py-3 text-[1rem] text-ink placeholder:text-muted focus:outline-none"
+            />
+            <button
+              type="submit"
+              class="shrink-0 bg-accent px-5 font-semibold text-white transition hover:bg-accent-dark"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+        <div class="mt-5 flex flex-wrap gap-2">
+          {problemChips.map((chip) => (
+            <a
+              href={chip.href}
+              class="rounded-full border border-line bg-surface px-4 py-2 text-[0.9rem] font-medium text-ink no-underline transition hover:border-accent hover:text-accent-dark"
+            >
+              {chip.label}
+            </a>
+          ))}
         </div>
         <p class="mt-5 text-[0.88rem] text-muted">
           {articles.length} in-depth guides · 5 rooms · 0 holes in the wall
@@ -71,7 +95,62 @@ const methodGuides = articles
     </div>
   </section>
 
-  <!-- 2. Browse by room -->
+  <!-- 2. Trust strip -->
+  <section class="border-y border-line bg-surface">
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-3 px-4 py-4">
+      <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[0.92rem] font-medium text-ink">
+        <li class="flex items-center gap-2">
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-sage-soft text-[0.7rem] font-bold text-sage">✓</span>
+          Renter-tested methods
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-sage-soft text-[0.7rem] font-bold text-sage">✓</span>
+          No drilling, no damage
+        </li>
+        <li class="flex items-center gap-2">
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-sage-soft text-[0.7rem] font-bold text-sage">✓</span>
+          Deposit-safe, with removal steps
+        </li>
+      </ul>
+      <div class="flex items-center gap-3 sm:ml-auto">
+        <a href="/authors/hamza-hameed/" class="flex items-center gap-2 no-underline">
+          <img
+            src="/images/authors/hamza-hameed.webp"
+            alt="Photo of Hamza Hameed"
+            width="36"
+            height="36"
+            loading="lazy"
+            decoding="async"
+            class="h-9 w-9 rounded-full border border-line object-cover"
+          />
+          <span class="text-[0.9rem] font-medium text-ink-soft">by Hamza Hameed</span>
+        </a>
+        <a
+          href={SITE.pinterest}
+          target="_blank"
+          rel="noopener"
+          class="rounded-full border border-line bg-paper px-4 py-2 text-[0.88rem] font-semibold text-ink no-underline transition hover:border-accent hover:text-accent-dark"
+        >
+          Follow on Pinterest
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Start here — 5 pillars -->
+  {pillars.length > 0 && (
+    <section class="mx-auto max-w-6xl px-4 py-10">
+      <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Start here</h2>
+      <p class="mt-1 text-muted">The complete guide for each room — start with yours.</p>
+      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {pillars.map((article) => (
+          <ArticleCard article={article} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- 4. Browse by room -->
   <section id="browse-by-room" class="mx-auto max-w-6xl scroll-mt-24 px-4 py-8">
     <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Browse by room</h2>
     <p class="mt-1 text-muted">Pick the room, find the fix. Every guide is written for renters.</p>
@@ -114,20 +193,7 @@ const methodGuides = articles
     </div>
   </section>
 
-  <!-- 3. Start here — 5 pillars -->
-  {pillars.length > 0 && (
-    <section class="mx-auto max-w-6xl px-4 py-8">
-      <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Start here</h2>
-      <p class="mt-1 text-muted">The complete guide for each room — start with yours.</p>
-      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {pillars.map((article) => (
-          <ArticleCard article={article} />
-        ))}
-      </div>
-    </section>
-  )}
-
-  <!-- 4. No-drill essentials -->
+  <!-- 5. No-drill essentials (method strip) -->
   {methodGuides.length > 0 && (
     <section class="mx-auto max-w-6xl px-4 py-8">
       <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">No-drill essentials</h2>
@@ -138,12 +204,12 @@ const methodGuides = articles
         ))}
       </div>
       <p class="mt-5">
-        <a href="/renter-friendly-solutions/" class="font-semibold">All renter-friendly methods →</a>
+        <a href="/renter-guides/" class="font-semibold">All renter guides →</a>
       </p>
     </section>
   )}
 
-  <!-- 5. Latest articles -->
+  <!-- 6. Latest articles -->
   {latest.length > 0 && (
     <section class="mx-auto max-w-6xl px-4 py-8">
       <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Latest articles</h2>
@@ -155,52 +221,42 @@ const methodGuides = articles
     </section>
   )}
 
-  <!-- 6. Popular problems -->
+  <!-- 7. How we test -->
   <section class="mx-auto max-w-6xl px-4 py-8">
-    <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">What is your problem?</h2>
-    <div class="mt-6 flex flex-wrap gap-3">
-      <a href="/kitchen-storage/small-apartment-pantry-organization-no-pantry/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">No pantry?</a>
-      <a href="/bedroom-closet-storage/no-closet-bedroom-storage-create-wardrobe/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">No closet?</a>
-      <a href="/bathroom-storage/renter-friendly-bathroom-storage-ideas-tiny-bathrooms/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">Tiny bathroom?</a>
-      <a href="/living-room-entryway-storage/small-apartment-shoe-storage-without-drilling/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">Shoes everywhere?</a>
-      <a href="/living-room-entryway-storage/create-drop-zone-small-rental-no-entryway/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">No entryway?</a>
-      <a href="/renter-friendly-solutions/small-apartment-laundry-storage-solutions-renters/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">Laundry chaos?</a>
+    <div class="rounded-2xl border border-line bg-sage-soft p-6 sm:p-8">
+      <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-sage">How we test</p>
+      <h2 class="mt-2 font-display text-[clamp(1.5rem,3vw,2rem)] font-semibold text-ink">
+        Every weight limit on this site is checked, not copied.
+      </h2>
+      <p class="mt-2 max-w-3xl leading-relaxed text-ink-soft">
+        Adhesive ratings come from the manufacturer's own published figures, removal
+        steps follow the maker's instructions, and measurements are stated in both
+        imperial and metric. Where a method fails — on textured walls, in steam,
+        over its rated weight — the guide says so, and says what to use instead.
+      </p>
+      <p class="mt-4">
+        <a href="/how-we-test/" class="font-semibold">Read how we evaluate every method →</a>
+      </p>
     </div>
   </section>
 
-  <!-- 7. Trust strip -->
-  <section class="mx-auto max-w-6xl px-4 py-8">
-    <div class="flex flex-col items-start gap-5 rounded-2xl border border-line bg-surface p-6 sm:flex-row sm:items-center">
-      <a href="/authors/hamza-hameed/" class="shrink-0">
-        <img
-          src="/images/authors/hamza-hameed.webp"
-          alt="Photo of Hamza Hameed"
-          width="80"
-          height="80"
-          loading="lazy"
-          decoding="async"
-          class="h-20 w-20 rounded-full border border-line object-cover"
-        />
-      </a>
+  <!-- 8. Newsletter (dark band) -->
+  <section class="mt-8 bg-espresso">
+    <div class="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 lg:grid-cols-[1fr_1.1fr]">
       <div>
-        <p class="font-display text-xl font-semibold text-ink">Written by Hamza Hameed</p>
-        <p class="mt-1 max-w-2xl text-[0.98rem] leading-relaxed text-muted">
-          Frontend developer and founder of Outfit Edits. Every guide on this site is
-          built around real measurements, real weight limits and real rental rules —
-          no drilling, no damage, no lost deposit.
-          <a href="/about/"> More about the site →</a>
+        <h2 class="font-display text-[clamp(1.7rem,3.4vw,2.3rem)] font-semibold leading-tight text-cream" style="text-wrap: balance;">
+          The Deposit-Safe Renter Checklist, free in your inbox
+        </h2>
+        <p class="mt-3 max-w-md leading-relaxed text-cream/80">
+          Join the weekly letter and get the move-in/move-out checklist we wish
+          every renter had — what to photograph, what never to drill, and how to
+          hand back the keys with your full deposit.
+        </p>
+        <p class="mt-4 flex items-center gap-2 text-[0.92rem] font-medium text-cream">
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-cream/15 text-[0.7rem] font-bold text-accent-light">✓</span>
+          One practical fix per week · No spam · Unsubscribe anytime
         </p>
       </div>
-      <a
-        href={SITE.pinterest}
-        target="_blank"
-        rel="noopener"
-        class="shrink-0 rounded-full border border-line bg-paper px-5 py-2.5 font-semibold text-ink no-underline hover:border-accent hover:text-accent-dark sm:ml-auto"
-      >
-        Follow on Pinterest
-      </a>
-    </div>
-    <div class="mt-8">
       <NewsletterForm />
     </div>
   </section>

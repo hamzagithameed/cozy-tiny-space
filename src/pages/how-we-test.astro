@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../utils/site';
+---
+
+<BaseLayout
+  title="How We Test and Evaluate"
+  description="How Cozy Tiny Space checks weight limits, removal steps and measurements: manufacturer ratings, maker instructions, and honest failure notes — no copied numbers."
+  canonicalPath="/how-we-test/"
+>
+  <div class="mx-auto max-w-3xl px-4 pb-4 pt-10">
+    <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-accent">Our standard</p>
+    <h1 class="mt-2 font-display text-[clamp(2rem,5vw,3rem)] font-semibold tracking-tight text-ink">
+      How we test and evaluate
+    </h1>
+    <p class="mt-3 text-[1.05rem] leading-relaxed text-muted">
+      A storage tip is only useful if the shelf stays up and the deposit comes
+      back. This page explains where every number on {SITE.name} comes from,
+      and what we refuse to guess.
+    </p>
+
+    <div class="mt-8 space-y-8 leading-relaxed text-ink-soft">
+      <section>
+        <h2 class="font-display text-[1.4rem] font-semibold text-ink">Weight limits come from the maker, not from other blogs</h2>
+        <p class="mt-2">
+          Every adhesive hook, strip and tension product in our guides is rated
+          by its manufacturer — 3M publishes a rating for every Command strip
+          size, for example. We quote those published ratings, state them per
+          strip or per hook (never per "set" unless the maker does), and then
+          tell you to stay well under them, because heat, steam, dust and
+          textured surfaces all reduce what a product actually holds.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-[1.4rem] font-semibold text-ink">Removal steps follow the manufacturer's instructions</h2>
+        <p class="mt-2">
+          "Damage-free" is a promise about move-out day, so removal matters as
+          much as installation. Our removal guidance follows the maker's own
+          instructions — for adhesive strips, that means holding the hook
+          steady and pulling the tab straight down, slowly, never outward. If
+          a product has no safe removal method for a surface, we say so and
+          recommend a freestanding alternative instead.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-[1.4rem] font-semibold text-ink">Measurements are real and dual-unit</h2>
+        <p class="mt-2">
+          Dimensions in our guides come from product specifications and
+          standard furniture and appliance sizes, and are always given in both
+          imperial and metric. If a fix needs a minimum surface size, a
+          clearance or a curing time, the guide states it before the first
+          step — not in a footnote after something has fallen down.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-[1.4rem] font-semibold text-ink">Failures are part of the guide</h2>
+        <p class="mt-2">
+          Every method has surfaces and situations where it fails: suction on
+          textured tile, adhesives near stove heat, tension rods on soft
+          paint. Each guide carries a "what didn't work / who should skip
+          this" note, because a renter who avoids one bad purchase saves more
+          than a renter who finds one good one.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-[1.4rem] font-semibold text-ink">Images follow a licence-first policy</h2>
+        <p class="mt-2">
+          Photos on this site are our own, licensed from a stock library, or
+          used with the creator's written permission and a visible credit.
+          Credit alone is not permission, and we do not treat it as such.
+          Decorative AI imagery is labelled and is never presented as a real
+          install or a test result. See our
+          <a href="/copyright/">Copyright &amp; Takedown</a> page if you are a
+          creator with a question about an image.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="font-display text-[1.4rem] font-semibold text-ink">Corrections</h2>
+        <p class="mt-2">
+          Found a number that disagrees with a manufacturer's current spec, or
+          a method that failed exactly as installed? Email
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a> — corrections are
+          checked against the source and the guide is updated with a new
+          "last updated" date.
+        </p>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

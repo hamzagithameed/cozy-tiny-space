@@ -34,7 +34,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <a href="/bedroom-closet-storage/">Bedroom &amp; Closet</a> ·
         <a href="/bathroom-storage/">Bathroom</a> ·
         <a href="/living-room-entryway-storage/">Living Room &amp; Entryway</a> ·
-        <a href="/renter-friendly-solutions/">Renter-Friendly Solutions</a>
+        <a href="/renter-guides/">Renter-Friendly Solutions</a>
       </p>
     </noscript>
   </div>
@@ -142,4 +142,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   // Warm the engine on first focus so the first keystroke is fast.
   input?.addEventListener('focus', () => void ensureEngines(), { once: true });
+
+  // Arriving from the homepage hero search (/search/?q=...): prefill the
+  // box and run the search immediately.
+  const initialQuery = new URLSearchParams(window.location.search).get('q');
+  if (input && initialQuery) {
+    input.value = initialQuery;
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  }
 </script>
