@@ -8,7 +8,7 @@ import ArticleCard from '../components/ArticleCard.astro';
 import AdSlot from '../components/AdSlot.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import InstagramEmbed from '../components/InstagramEmbed.astro';
-import { articleUrl, formatDate, readingTime } from '../utils/posts';
+import { articleUrl, formatDate, readingTime, slugOf } from '../utils/posts';
 import { CATEGORY_LABELS, SITE } from '../utils/site';
 
 interface Props {
@@ -64,7 +64,7 @@ const breadcrumbs = [
       <p class="mt-4 text-[1.05rem] leading-relaxed text-muted">{data.description}</p>
       <p class="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[0.88rem] text-muted">
         <span>
-          By <a href={`/authors/${author.id}/`} class="font-medium">{author.data.name}</a>
+          By <a href={`/authors/${slugOf(author.id)}/`} class="font-medium">{author.data.name}</a>
         </span>
         <span aria-hidden="true">·</span>
         <span>Published {formatDate(data.pubDate)}</span>
