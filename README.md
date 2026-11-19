@@ -296,4 +296,5 @@ scripts/        generate-images.mjs, build-search-index.mjs, validate-content.mj
 public/images/  original SVG illustrations (placeholders — see Image policy)
 ```
 #   T r i g g e r   r e b u i l d  
+  
  
