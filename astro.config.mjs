@@ -11,7 +11,7 @@ import react from '@astrojs/react';
 // This is the single place the domain lives; canonicals, OG tags, RSS and
 // the sitemap all derive from it.
 export default defineConfig({
-  site: 'https://cozytinyspace.com',
+  site: 'https://cozytinyspace.pages.dev',
   trailingSlash: 'ignore',
 
   // Static output - Keystatic will work in local mode
