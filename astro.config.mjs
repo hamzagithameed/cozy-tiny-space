@@ -12,7 +12,7 @@ import react from '@astrojs/react';
 // This is the single place the domain lives; canonicals, OG tags, RSS and
 // the sitemap all derive from it.
 export default defineConfig({
-  site: 'https://cozytinyspace.pages.dev',
+  site: 'https://cozytinyspace.com',
   trailingSlash: 'ignore',
 
   // Hybrid output - allows Keystatic admin panel on server routes
@@ -25,9 +25,9 @@ export default defineConfig({
     mdx(),
     react(),
     keystatic(), // Re-enabled for local dev
-    // sitemap({ // Temporarily disabled - causing build error
-    //   filter: (page) => !page.includes('/search') && !page.includes('/keystatic'),
-    // }),
+    sitemap({
+      filter: (page) => !page.includes('/search') && !page.includes('/keystatic'),
+    }),
   ],
 
   vite: {

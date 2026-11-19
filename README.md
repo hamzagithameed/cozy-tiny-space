@@ -5,8 +5,11 @@ organization for renters in small apartments. No drilling, no permanent changes,
 no lost deposit.
 
 **Status:** v1 complete — 30 articles, 5 categories, all pages, verified build.
-**Stack:** Astro 5 + TypeScript + Tailwind CSS v4, Content Collections + MDX,
-Cloudflare Pages (static, no adapter). **Site URL (placeholder, NOT purchased):**
+**Stack:** Astro 4.16 + TypeScript + Tailwind CSS v4, Content Collections + MDX,
+Keystatic CMS, Cloudflare Pages adapter (hybrid output: every content page is
+prerendered static; only the /keystatic admin and its API routes are
+server-rendered). Sitemap by @astrojs/sitemap **3.2.1, pinned exactly** —
+3.7.x crashes on Astro 4 (`_routes.reduce` in astro:build:done). **Site URL (placeholder, NOT purchased):**
 `https://cozytinyspace.com`
 
 ## Quick start
@@ -106,6 +109,16 @@ thin/duplicate volume publishing):
    no matter how clean the build is.
 
 ## Image policy (owner-confirmed — read before touching any image)
+
+**OWNER DECISION, 20 Nov 2026 (supersedes points 1–3 below where they
+conflict):** the Instagram route is closed entirely — no embeds going
+forward — and feature images will be **AI-generated in the articles
+phase**, together with the article rework. Until that phase, the SVG
+placeholders and the existing embeds stay as they are. Every image must
+carry a licence record (`imageLicense` frontmatter: own / stock /
+permissioned / ai / placeholder) — run `npm run check-images` for the
+report. AI images are never presented as a real tested install or a real
+before/after.
 
 **1. BEST — original photos taken by the owner with a phone.**
 This is the long-term image strategy. The SVG illustrations in this repo are
@@ -224,7 +237,7 @@ shift at zero when ads are added.
 ## Keystatic admin (`/keystatic`)
 
 Keystatic **is included in v1 and the build passes with it**. The site is
-`output: 'static'` with the Cloudflare adapter, so all content pages are
+`output: 'hybrid'` with the Cloudflare adapter, so all content pages are
 prerendered and only the `/keystatic` admin route (plus `/api/keystatic`) is
 served on demand — the same pattern as Outfit Edits. The admin is configured
 in `keystatic.config.ts` with collections for `articles` (5 categories),
@@ -249,7 +262,10 @@ meantime (see "Content workflow").
 
 Warm neutrals + one terracotta accent. Tokens in `src/styles/global.css`:
 paper `#FAF7F1`, ink `#1C1917`, accent `#B4532A`. Fonts: Fraunces (display
-serif) + Public Sans via Google Fonts, system fallbacks. Animations are
+serif) + Public Sans, **self-hosted via Fontsource** (no Google Fonts
+requests), system fallbacks. Secondary text is #57534E (~7:1 on paper);
+links use the dark terracotta #8F3F1E. Sage #5E7B63 marks renter-safe
+badges; footer and newsletter band are warm espresso #2A211C. Animations are
 CSS-only: scroll-reveal (`animation-timeline: view()` with a visible-by-default
 fallback), native View Transitions, image hover zoom (transform only), and the
 before/after slider (native `<input type="range">` + `clip-path`). All motion
@@ -268,8 +284,9 @@ CLS ≤ 0.1, INP ≤ 200ms.
 - [ ] Google Search Console + Analytics setup; submit sitemap; request
       indexing gradually (see "Indexing").
 - [ ] AdSense application once there is enough content and traffic; Mediavine
-      Journey only later — verify the session threshold on application day
-      (published sources conflicted: 1,000 vs 5,000 vs 10,000 sessions).
+      Journey bar is **verified: 1,000 tier-1 sessions / 30 days** (confirmed
+      on the owner's first site, Outfit Edits, Nov 2026). Internal target:
+      5,000 total sessions within 3–4 months of launch.
 - [ ] Keystatic Cloud project: create it and replace the placeholder project
       slug in `keystatic.config.ts` (see "Keystatic admin" above).
 - [ ] Amazon Associates application, then swap plain product links for
@@ -289,12 +306,11 @@ src/
   layouts/      BaseLayout, ArticleLayout
   pages/        index, [category], [category]/[slug], before-after, search,
                 about, contact, privacy-policy, disclaimer,
-                affiliate-disclosure, authors/[author], rss.xml, robots.txt, 404
+                affiliate-disclosure, how-we-test, copyright,
+                authors/[author], rss.xml, robots.txt, 404
   styles/       global.css (design tokens, prose, animations)
   utils/        site.ts (constants), posts.ts (queries, related posts)
-scripts/        generate-images.mjs, build-search-index.mjs, validate-content.mjs
+scripts/        generate-images.mjs, build-search-index.mjs, validate-content.mjs,
+                check-image-licenses.mjs
 public/images/  original SVG illustrations (placeholders — see Image policy)
 ```
-#   T r i g g e r   r e b u i l d  
-  
- 

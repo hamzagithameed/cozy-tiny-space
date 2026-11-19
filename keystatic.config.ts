@@ -42,7 +42,7 @@ export default config({
             { label: 'Bedroom & Closet Storage', value: 'bedroom-closet-storage' },
             { label: 'Bathroom Storage', value: 'bathroom-storage' },
             { label: 'Living Room & Entryway Storage', value: 'living-room-entryway-storage' },
-            { label: 'Renter-Friendly Solutions', value: 'renter-friendly-solutions' },
+            { label: 'Renter-Friendly Solutions', value: 'renter-guides' },
           ],
           defaultValue: 'kitchen-storage',
         }),
