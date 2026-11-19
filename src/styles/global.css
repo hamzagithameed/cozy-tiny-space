@@ -5,14 +5,19 @@
   --color-surface: #ffffff;
   --color-ink: #1c1917;
   --color-ink-soft: #44403c;
-  --color-muted: #78716c;
+  --color-muted: #57534e;
   --color-line: #e7dfd3;
   --color-accent: #b4532a;
   --color-accent-dark: #8f3f1e;
   --color-accent-soft: #f6e9df;
+  --color-accent-light: #d9825b;
   --color-check: #2f6b3a;
+  --color-sage: #5e7b63;
+  --color-sage-soft: #e8eee6;
+  --color-espresso: #2a211c;
+  --color-cream: #f3ebdd;
 
-  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-display: "Fraunces Variable", "Fraunces", Georgia, "Times New Roman", serif;
   --font-sans: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
