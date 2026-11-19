@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1200" viewBox="0 0 900 1200" role="img" aria-label="Removable Kitchen Storage Ideas for Renters That Actually Stay Put">
+<rect width="900" height="1200" fill="#faf7f1"/>
+<rect x="0" y="0" width="900" height="14" fill="#b4532a"/>
+<g transform="translate(64,52)"><rect x="70" y="60" width="632" height="400" rx="24" fill="#ffffff" stroke="#e7dfd3" stroke-width="3"/>
+<line x1="110" y1="180" x2="662" y2="180" stroke="#1c1917" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/><line x1="140" y1="180" x2="140" y2="220" stroke="#1c1917" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/><line x1="632" y1="180" x2="632" y2="220" stroke="#1c1917" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<rect x="150" y="110" width="70" height="70" rx="10" fill="#f6e9df" stroke="#b4532a" stroke-width="4"/><rect x="245" y="100" width="70" height="80" rx="10" fill="#f6e9df" stroke="#b4532a" stroke-width="4"/><rect x="340" y="115" width="70" height="65" rx="10" fill="#f6e9df" stroke="#b4532a" stroke-width="4"/><rect x="520" y="105" width="90" height="75" rx="10" fill="#b4532a" opacity="0.9"/>
+<line x1="110" y1="300" x2="662" y2="300" stroke="#b4532a" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/><circle cx="200" cy="300" r="10" fill="#b4532a"/><circle cx="330" cy="300" r="10" fill="#b4532a"/><circle cx="460" cy="300" r="10" fill="#b4532a"/><circle cx="590" cy="300" r="10" fill="#b4532a"/>
+<path d="M200 310 v40 a18 18 0 0 0 36 0 v-40" stroke="#1c1917" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M330 310 v40 a18 18 0 0 0 36 0 v-40" stroke="#1c1917" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M460 310 v40 a18 18 0 0 0 36 0 v-40" stroke="#1c1917" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<line x1="70" y1="420" x2="702" y2="420" stroke="#1c1917" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/><rect x="150" y="360" width="180" height="60" rx="8" fill="#f6e9df" stroke="#1c1917" stroke-width="4"/><rect x="430" y="350" width="150" height="70" rx="8" fill="#ffffff" stroke="#b4532a" stroke-width="4"/></g>
+<text x="64" y="640" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" letter-spacing="4" fill="#b4532a">KITCHEN STORAGE</text>
+<text x="64" y="700" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="600" fill="#1c1917">Removable Kitchen Storage</text>
+<text x="64" y="766" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="600" fill="#1c1917">Ideas for Renters That</text>
+<text x="64" y="832" font-family="Georgia, 'Times New Roman', serif" font-size="54" font-weight="600" fill="#1c1917">Actually Stay Put</text>
+<line x1="64" y1="928" x2="180" y2="928" stroke="#b4532a" stroke-width="5"/>
+<text x="64" y="982" font-family="Arial, Helvetica, sans-serif" font-size="26" letter-spacing="2" fill="#78716c">COZY TINY SPACE · RENTER-FRIENDLY</text>
+</svg>

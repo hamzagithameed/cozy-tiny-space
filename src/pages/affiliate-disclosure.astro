@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../utils/site';
+---
+
+<BaseLayout
+  title="Affiliate Disclosure"
+  description="Affiliate Disclosure for Cozy Tiny Space — our current position on affiliate links and how product recommendations work."
+  canonicalPath="/affiliate-disclosure/"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Affiliate Disclosure', url: '/affiliate-disclosure/' },
+  ]}
+>
+  <div class="mx-auto max-w-3xl px-4 pb-4 pt-10">
+    <h1 class="font-display text-[clamp(2rem,5vw,3rem)] font-semibold tracking-tight text-ink">Affiliate Disclosure</h1>
+    <p class="mt-2 text-[0.9rem] text-muted">Last updated: November 19, 2026</p>
+    <div class="article-body mt-6">
+      <h2>Current position: no affiliate links</h2>
+      <p>
+        As of the date above, Cozy Tiny Space contains <strong>no affiliate
+        links</strong> and does not participate in the Amazon Associates Program
+        or any other affiliate program. Product names in our guides are
+        suggestions based on research — not paid placements — and the plain
+        retailer links in our articles earn us nothing if you click or buy.
+      </p>
+      <h2>What will change when affiliate links arrive</h2>
+      <p>
+        When we are accepted into an affiliate program (Amazon Associates is
+        planned), this page will be updated <em>before</em> the first affiliate
+        link goes live, and it will state:
+      </p>
+      <ul>
+        <li>Which programs we participate in.</li>
+        <li>That we may earn a commission on qualifying purchases, at no extra cost to you.</li>
+        <li>That affiliate links will be marked as such in the articles where they appear.</li>
+      </ul>
+      <p>
+        For the Amazon Associates Program specifically, the required statement
+        will be added here once membership is approved: "As an Amazon Associate,
+        we earn from qualifying purchases." Until that approval exists, that
+        statement does not apply to this site.
+      </p>
+      <h2>How recommendations work</h2>
+      <p>
+        We recommend products because they fit a renter's constraints —
+        removable, damage-free, the right size for a small space — not because
+        anyone paid us to. That will not change when affiliate links are added:
+        a product's rental-friendliness decides whether it is recommended, and
+        the affiliate relationship (if any) is disclosed alongside it.
+      </p>
+      <h2>Questions</h2>
+      <p>
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

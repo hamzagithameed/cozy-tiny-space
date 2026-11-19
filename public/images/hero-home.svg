@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Small rental apartment with organized shelves and storage">
+<rect width="1600" height="900" fill="#faf7f1"/>
+<rect x="0" y="0" width="1600" height="12" fill="#b4532a"/>
+<text x="80" y="170" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700" letter-spacing="5" fill="#b4532a">RENTER-FRIENDLY SMALL SPACE ORGANIZATION</text>
+<text x="80" y="270" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="600" fill="#1c1917">More storage in your</text>
+<text x="80" y="360" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="600" fill="#1c1917">small rental —</text>
+<text x="80" y="450" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="600" fill="#b4532a">without drilling.</text>
+<text x="80" y="540" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#78716c">No damage. No lost deposit. Just more room.</text>
+<g transform="translate(880,110)"><rect x="0" y="0" width="640" height="620" rx="28" fill="#ffffff" stroke="#e7dfd3" stroke-width="3"/>
+<line x1="60" y1="170" x2="580" y2="170" stroke="#1c1917" stroke-width="7" stroke-linecap="round"/><rect x="90" y="90" width="80" height="80" rx="10" fill="#f6e9df" stroke="#b4532a" stroke-width="4"/><rect x="200" y="75" width="80" height="95" rx="10" fill="#f6e9df" stroke="#b4532a" stroke-width="4"/><rect x="420" y="85" width="110" height="85" rx="10" fill="#b4532a" opacity="0.9"/>
+<line x1="60" y1="330" x2="580" y2="330" stroke="#b4532a" stroke-width="7" stroke-linecap="round"/><circle cx="150" cy="330" r="11" fill="#b4532a"/><circle cx="300" cy="330" r="11" fill="#b4532a"/><circle cx="450" cy="330" r="11" fill="#b4532a"/><path d="M150 341 v44 a20 20 0 0 0 40 0 v-44" stroke="#1c1917" stroke-width="6" fill="none"/><path d="M300 341 v44 a20 20 0 0 0 40 0 v-44" stroke="#1c1917" stroke-width="6" fill="none"/><path d="M450 341 v44 a20 20 0 0 0 40 0 v-44" stroke="#1c1917" stroke-width="6" fill="none"/>
+<line x1="40" y1="500" x2="600" y2="500" stroke="#1c1917" stroke-width="7" stroke-linecap="round"/><rect x="100" y="430" width="200" height="70" rx="8" fill="#f6e9df" stroke="#1c1917" stroke-width="4"/><rect x="360" y="420" width="170" height="80" rx="8" fill="#ffffff" stroke="#b4532a" stroke-width="4"/></g>
+<text x="80" y="830" font-family="Arial, Helvetica, sans-serif" font-size="26" letter-spacing="2" fill="#78716c">COZY TINY SPACE</text>
+</svg>

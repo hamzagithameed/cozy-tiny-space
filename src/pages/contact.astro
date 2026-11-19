@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../utils/site';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact Cozy Tiny Space — questions, corrections, or a storage problem we have not covered yet."
+  canonicalPath="/contact/"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Contact', url: '/contact/' },
+  ]}
+>
+  <div class="mx-auto max-w-3xl px-4 pb-4 pt-10">
+    <h1 class="font-display text-[clamp(2rem,5vw,3rem)] font-semibold tracking-tight text-ink">Contact</h1>
+    <div class="article-body mt-6">
+      <p>
+        Questions about a guide, a correction, or a storage problem we have not
+        covered yet? The fastest way to reach us is email:
+      </p>
+      <p>
+        <a href={`mailto:${SITE.email}`} class="text-[1.1rem] font-semibold">{SITE.email}</a>
+      </p>
+      <p>
+        You can also use the form below — it opens your email app with the
+        message ready to send. We read every message and usually reply within
+        a few days.
+      </p>
+    </div>
+
+    <form
+      class="mt-8 space-y-4 rounded-2xl border border-line bg-surface p-6"
+      onsubmit="window.location.href = 'mailto:hamzahameed9810@gmail.com?subject=' + encodeURIComponent(document.getElementById('contact-subject').value) + '&body=' + encodeURIComponent(document.getElementById('contact-message').value + '\n\n— ' + document.getElementById('contact-name').value); return false;"
+    >
+      <div>
+        <label for="contact-name" class="block font-semibold text-ink">Your name</label>
+        <input id="contact-name" type="text" required autocomplete="name" class="mt-1 w-full rounded-xl border border-line bg-paper px-4 py-2.5 text-ink focus:border-accent focus:outline-none" />
+      </div>
+      <div>
+        <label for="contact-subject" class="block font-semibold text-ink">Subject</label>
+        <input id="contact-subject" type="text" required placeholder="e.g. A storage question about small kitchens" class="mt-1 w-full rounded-xl border border-line bg-paper px-4 py-2.5 text-ink focus:border-accent focus:outline-none" />
+      </div>
+      <div>
+        <label for="contact-message" class="block font-semibold text-ink">Message</label>
+        <textarea id="contact-message" rows="6" required class="mt-1 w-full rounded-xl border border-line bg-paper px-4 py-2.5 text-ink focus:border-accent focus:outline-none"></textarea>
+      </div>
+      <button type="submit" class="rounded-full bg-accent px-6 py-3 font-semibold text-white transition hover:bg-accent-dark">
+        Send via email
+      </button>
+      <p class="text-[0.85rem] text-muted">
+        This form opens your own email app — no message is stored on this site.
+        See the <a href="/privacy-policy/">Privacy Policy</a>.
+      </p>
+    </form>
+  </div>
+</BaseLayout>

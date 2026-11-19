@@ -1,0 +1,67 @@
+---
+/**
+ * Before / After slider — native <input type="range"> driving a CSS
+ * clip-path. Keyboard + screen-reader accessible, GPU-cheap, no library.
+ * Fixed aspect-ratio wrapper prevents CLS.
+ */
+interface Props {
+  before: string;
+  after: string;
+  beforeAlt: string;
+  afterAlt: string;
+  caption?: string;
+}
+const { before, after, beforeAlt, afterAlt, caption } = Astro.props;
+---
+
+<figure class="ba-figure my-6">
+  <div class="ba-wrap" data-ba>
+    <img src={before} alt={beforeAlt} width="1200" height="900" loading="lazy" decoding="async" />
+    <img src={after} alt={afterAlt} width="1200" height="900" loading="lazy" decoding="async" class="ba-after" />
+    <span class="ba-tag" style="left: 0.75rem;">Before</span>
+    <span class="ba-tag" style="right: 0.75rem;">After</span>
+    <span class="ba-divider" aria-hidden="true"></span>
+    <span class="ba-handle" aria-hidden="true">↔</span>
+    <input
+      type="range"
+      min="0"
+      max="100"
+      value="50"
+      step="1"
+      class="ba-range"
+      aria-label="Drag to compare before and after"
+    />
+  </div>
+  {caption && <figcaption class="mt-2 text-center text-[0.88rem] text-muted">{caption}</figcaption>}
+</figure>
+
+<script>
+  // One tiny script wires every slider on the page. No framework, no library.
+  for (const wrap of document.querySelectorAll<HTMLElement>('[data-ba]')) {
+    const input = wrap.querySelector<HTMLInputElement>('.ba-range');
+    if (!input) continue;
+    const setPos = (value: string) => wrap.style.setProperty('--ba-pos', `${value}%`);
+    input.addEventListener('input', () => setPos(input.value));
+    setPos(input.value);
+    // Micro-nudge once when scrolled into view: signals draggability.
+    if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            observer.disconnect();
+            const start = Number(input.value);
+            input.value = String(Math.min(100, start + 15));
+            setPos(input.value);
+            window.setTimeout(() => {
+              input.value = String(start);
+              setPos(input.value);
+            }, 600);
+          }
+        },
+        { threshold: 0.5 },
+      );
+      observer.observe(wrap);
+    }
+  }
+</script>

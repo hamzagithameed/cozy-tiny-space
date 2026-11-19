@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About Cozy Tiny Space"
+  description="Cozy Tiny Space helps renters create more storage and organize small apartments without permanent changes — no drilling, no damage, no lost deposit."
+  canonicalPath="/about/"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'About', url: '/about/' },
+  ]}
+>
+  <div class="mx-auto max-w-3xl px-4 pb-4 pt-10">
+    <h1 class="font-display text-[clamp(2rem,5vw,3rem)] font-semibold tracking-tight text-ink">About Cozy Tiny Space</h1>
+    <div class="article-body mt-6">
+      <p>
+        <strong>Cozy Tiny Space</strong> helps renters create more storage and organize
+        small apartments — without permanent changes. No drilling, no damage, no
+        lost deposit.
+      </p>
+      <p>
+        Small apartments are not a storage problem. They are a
+        <em>systems</em> problem: the right shelf in the right place, a second
+        hanging rod, a hook where you actually reach for your keys. This site
+        exists to give renters those systems — measured, tested against rental
+        rules, and written so you can do them in an afternoon.
+      </p>
+      <h2>What this site covers</h2>
+      <ul>
+        <li><strong>Kitchen storage</strong> — pantry, cabinets, countertops and under-sink fixes for rental kitchens.</li>
+        <li><strong>Bedroom &amp; closet storage</strong> — wardrobes, under-bed storage and clothing organization without a dresser.</li>
+        <li><strong>Bathroom storage</strong> — no-drill shelves, over-toilet storage and under-sink organization for tiny bathrooms.</li>
+        <li><strong>Living room &amp; entryway storage</strong> — shoe storage, multifunctional furniture and drop zones with no entryway.</li>
+        <li><strong>Renter-friendly solutions</strong> — adhesive hooks, tension rods and removable shelves, with honest weight limits and removal risks.</li>
+      </ul>
+      <h2>What this site does not cover</h2>
+      <p>
+        We do not cover renovations, permanent installations, or anything that
+        needs a landlord's permission to build. We do not publish pure decor
+        trends. If a decor idea does not add storage or organization, it does
+        not belong here.
+      </p>
+      <h2>How the guides are written</h2>
+      <p>
+        Every solution on this site carries the same facts: how much space it
+        needs, how it installs, its approximate dimensions, its rental-friendly
+        limits, and its pros and cons. Measurements are in inches first, with
+        centimetres alongside. Budgets are approximate ranges, not promises.
+        Where a product is named, it is a suggestion — not a paid placement.
+      </p>
+      <h2>Who writes it</h2>
+      <p>
+        The site is written by <a href="/authors/hamza-hameed/">Hamza Hameed</a>, a
+        frontend developer from Karachi, Pakistan, and the founder of
+        <a href="https://outfitedits.com" target="_blank" rel="noopener"> Outfit Edits</a>.
+        The site is built for readers in the United States first, with the United
+        Kingdom, Canada and Australia as secondary audiences.
+      </p>
+      <h2>Contact</h2>
+      <p>
+        Questions, corrections or a storage problem we have not covered yet?
+        <a href="/contact/"> Get in touch</a> — every message is read.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

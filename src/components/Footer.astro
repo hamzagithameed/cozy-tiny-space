@@ -1,0 +1,50 @@
+---
+import { CATEGORY_LABELS, CATEGORY_ORDER, SITE } from '../utils/site';
+import NewsletterForm from './NewsletterForm.astro';
+---
+
+<footer class="mt-16 border-t border-line bg-surface">
+  <div class="mx-auto max-w-6xl px-4 py-12">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <p class="font-display text-2xl font-semibold text-ink">Cozy Tiny Space</p>
+        <p class="mt-2 max-w-sm text-[0.95rem] text-muted">
+          More storage, better organization, without permanent changes. Practical
+          renter-friendly storage ideas for small apartments — no drilling, no
+          damage, no lost deposit.
+        </p>
+        <div class="mt-5">
+          <NewsletterForm compact />
+        </div>
+      </div>
+      <nav aria-label="Categories">
+        <p class="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-muted">Browse by room</p>
+        <ul class="mt-3 space-y-2 text-[0.95rem]">
+          {CATEGORY_ORDER.map((slug) => (
+            <li><a href={`/${slug}/`} class="text-ink-soft no-underline hover:text-accent-dark">{CATEGORY_LABELS[slug]}</a></li>
+          ))}
+          <li><a href="/before-after/" class="text-ink-soft no-underline hover:text-accent-dark">Before &amp; After Gallery</a></li>
+          <li><a href="/search/" class="text-ink-soft no-underline hover:text-accent-dark">Search</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Site pages">
+        <p class="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-muted">Site</p>
+        <ul class="mt-3 space-y-2 text-[0.95rem]">
+          <li><a href="/about/" class="text-ink-soft no-underline hover:text-accent-dark">About</a></li>
+          <li><a href="/contact/" class="text-ink-soft no-underline hover:text-accent-dark">Contact</a></li>
+          <li><a href="/authors/hamza-hameed/" class="text-ink-soft no-underline hover:text-accent-dark">About the author</a></li>
+          <li><a href="/privacy-policy/" class="text-ink-soft no-underline hover:text-accent-dark">Privacy Policy</a></li>
+          <li><a href="/disclaimer/" class="text-ink-soft no-underline hover:text-accent-dark">Disclaimer</a></li>
+          <li><a href="/affiliate-disclosure/" class="text-ink-soft no-underline hover:text-accent-dark">Affiliate Disclosure</a></li>
+          <li><a href="/rss.xml" class="text-ink-soft no-underline hover:text-accent-dark">RSS Feed</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="mt-10 flex flex-col gap-2 border-t border-line pt-5 text-[0.85rem] text-muted sm:flex-row sm:items-center sm:justify-between">
+      <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
+      <p>
+        No affiliate links yet — see the <a href="/affiliate-disclosure/">Affiliate Disclosure</a> for our policy.
+      </p>
+    </div>
+  </div>
+</footer>

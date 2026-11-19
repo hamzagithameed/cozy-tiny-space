@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+---
+
+<BaseLayout
+  title="Before & After: Small Rental Transformations Without Drilling"
+  description="See what a few removable, renter-friendly fixes do to a cluttered kitchen counter, a packed closet and a tiny bathroom shelf — no drilling, no damage."
+  canonicalPath="/before-after/"
+  image="/images/before-after/kitchen-counter-after.svg"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Before & After', url: '/before-after/' },
+  ]}
+>
+  <div class="mx-auto max-w-6xl px-4 pb-4 pt-10">
+    <header class="max-w-3xl">
+      <h1 class="font-display text-[clamp(2.1rem,5vw,3.2rem)] font-semibold leading-[1.12] tracking-tight text-ink" style="text-wrap: balance;">
+        Before &amp; After: small changes, real storage
+      </h1>
+      <p class="mt-3 text-[1.08rem] leading-relaxed text-muted">
+        Every transformation below uses only removable, damage-free fixes — the
+        same methods in our guides. Drag the slider to compare. Nothing here
+        required a drill, a landlord's permission, or a deposit risk.
+      </p>
+    </header>
+
+    <div class="mt-10 grid gap-10 lg:grid-cols-2">
+      <div>
+        <BeforeAfter
+          before="/images/before-after/kitchen-counter-before.svg"
+          after="/images/before-after/kitchen-counter-after.svg"
+          beforeAlt="Cluttered small rental kitchen counter before organization"
+          afterAlt="Same kitchen counter after adding a removable shelf riser and hooks"
+          caption="Kitchen counter: a shelf riser + under-shelf hooks freed the whole worktop."
+        />
+        <p class="mt-2 text-[0.95rem]">
+          <a href="/kitchen-storage/small-rental-kitchen-countertop-storage/" class="font-semibold">
+            How to free up countertop space without cabinets →
+          </a>
+        </p>
+      </div>
+      <div>
+        <BeforeAfter
+          before="/images/before-after/closet-before.svg"
+          after="/images/before-after/closet-after.svg"
+          beforeAlt="Overstuffed rental closet before organization"
+          afterAlt="Same closet after double hanging rods and shelf dividers"
+          caption="Closet: a second tension rod + shelf dividers doubled the hanging space."
+        />
+        <p class="mt-2 text-[0.95rem]">
+          <a href="/bedroom-closet-storage/double-rental-closet-space-without-installing/" class="font-semibold">
+            How to double your rental closet space →
+          </a>
+        </p>
+      </div>
+      <div>
+        <BeforeAfter
+          before="/images/before-after/bathroom-shelf-before.svg"
+          after="/images/before-after/bathroom-shelf-after.svg"
+          beforeAlt="Crowded tiny bathroom shelf before organization"
+          afterAlt="Same bathroom shelf after adhesive organizers and an over-toilet shelf"
+          caption="Bathroom shelf: adhesive organizers + an over-toilet shelf cleared the sink."
+        />
+        <p class="mt-2 text-[0.95rem]">
+          <a href="/bathroom-storage/storage-above-rental-bathroom-toilet-without-drilling/" class="font-semibold">
+            Storage above a rental toilet, without drilling →
+          </a>
+        </p>
+      </div>
+      <div class="flex flex-col justify-center rounded-2xl border border-line bg-accent-soft p-6">
+        <h2 class="font-display text-[1.5rem] font-semibold text-ink">Your turn</h2>
+        <p class="mt-2 text-[0.98rem] leading-relaxed text-ink-soft">
+          Every fix above is covered step by step — with required space,
+          dimensions, weight limits and rental-friendly limits — in the guides.
+        </p>
+        <p class="mt-4">
+          <a href="/renter-friendly-solutions/no-drill-shelves-apartment-walls-compared/" class="font-semibold">
+            Compare every no-drill method →
+          </a>
+        </p>
+        <p class="mt-2">
+          <a href="/kitchen-storage/" class="font-semibold">Browse kitchen storage →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

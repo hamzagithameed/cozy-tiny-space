@@ -1,0 +1,31 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getPublishedArticles, getRelatedPosts } from '../../utils/posts';
+
+export async function getStaticPaths() {
+  const articles = await getPublishedArticles();
+  return articles.map((article) => ({
+    params: { category: article.data.category, slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content, headings } = await render(article);
+const author = (await getEntry('authors', article.data.author))!;
+const all = await getPublishedArticles();
+const related = getRelatedPosts(article, all, 3);
+// Body text (for reading time) — render output is HTML; strip tags for the count.
+const bodyText = article.body ?? '';
+---
+
+<ArticleLayout
+  article={article}
+  author={author}
+  bodyText={bodyText}
+  headings={headings}
+  related={related}
+>
+  <Content />
+</ArticleLayout>

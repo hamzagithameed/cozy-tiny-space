@@ -1,0 +1,82 @@
+---
+/**
+ * Newsletter signup — plain ESP form POST, no backend.
+ *
+ * TODO (owner): paste your Buttondown / Kit / Mailchimp form action URL
+ * into ESP_ACTION below. Until then the form shows an honest
+ * "launching soon" message instead of a broken POST.
+ *
+ * Buttondown example:  https://buttondown.com/api/emails/embed-subscribe/<username>
+ * Kit example:         https://app.kit.com/forms/<form-id>/subscriptions
+ * Mailchimp example:   https://<dc>.list-manage.com/subscribe/post?u=<u>&id=<id>
+ */
+const ESP_ACTION = '';
+const ESP_FIELD = 'email';
+
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<div class={compact ? '' : 'rounded-2xl border border-line bg-surface p-6'}>
+  {!compact && (
+    <>
+      <p class="font-display text-xl font-semibold text-ink">Small-space storage ideas, once a week</p>
+      <p class="mt-1 text-[0.95rem] text-muted">
+        One practical, renter-friendly fix per email. No spam, unsubscribe anytime.
+      </p>
+    </>
+  )}
+  {compact && (
+    <p class="text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-muted">Newsletter</p>
+  )}
+  <form
+    data-newsletter-form
+    data-esp-action={ESP_ACTION}
+    method="post"
+    action={ESP_ACTION || undefined}
+    class={compact ? 'mt-3 flex gap-2' : 'mt-4 flex flex-col gap-2 sm:flex-row'}
+  >
+    <label for="newsletter-email" class="sr-only">Email address</label>
+    <input
+      id="newsletter-email"
+      type="email"
+      name={ESP_FIELD}
+      required
+      placeholder="you@example.com"
+      autocomplete="email"
+      class="w-full flex-1 rounded-full border border-line bg-paper px-4 py-2.5 text-[0.95rem] text-ink placeholder:text-muted focus:border-accent focus:outline-none"
+    />
+    <button
+      type="submit"
+      class="shrink-0 rounded-full bg-accent px-5 py-2.5 text-[0.95rem] font-semibold text-white transition hover:bg-accent-dark"
+    >
+      Subscribe
+    </button>
+  </form>
+  <p data-newsletter-note class="mt-2 text-[0.85rem] text-muted" hidden></p>
+  <p class="mt-2 text-[0.8rem] text-muted">
+    {compact
+      ? 'One email a week. Unsubscribe anytime.'
+      : 'We never sell your email address. See the Privacy Policy for details.'}
+  </p>
+</div>
+
+<script>
+  // If no ESP is configured yet, intercept the submit and say so honestly
+  // instead of POSTing to a dead endpoint.
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-newsletter-form]')) {
+    const action = form.dataset.espAction;
+    if (action) continue; // ESP configured — let the native POST happen.
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const note = form.parentElement?.querySelector<HTMLElement>('[data-newsletter-note]');
+      if (note) {
+        note.hidden = false;
+        note.textContent =
+          'Thanks for your interest — the newsletter launches with the site. Email hamzahameed9810@gmail.com and I will add you to the list.';
+      }
+    });
+  }
+</script>

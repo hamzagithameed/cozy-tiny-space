@@ -1,0 +1,106 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getPublishedArticles, articleUrl } from '../utils/posts';
+import { CATEGORY_LABELS, CATEGORY_ORDER } from '../utils/site';
+
+export async function getStaticPaths() {
+  const categories = await getCollection('categories');
+  return categories.map((category) => ({ params: { category: category.id }, props: { category } }));
+}
+
+interface Props {
+  category: CollectionEntry<'categories'>;
+}
+const { category } = Astro.props;
+const { Content } = await render(category);
+
+const articles = (await getPublishedArticles()).filter((a) => a.data.category === category.id);
+const pillar = articles.find((a) => a.data.pillar);
+const supporting = articles.filter((a) => !a.data.pillar);
+const relatedCategorySlug =
+  CATEGORY_ORDER[(CATEGORY_ORDER.indexOf(category.id as (typeof CATEGORY_ORDER)[number]) + 1) % CATEGORY_ORDER.length];
+---
+
+<BaseLayout
+  title={`${category.data.name} for Renters`}
+  description={category.data.description}
+  canonicalPath={`/${category.id}/`}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: category.data.name, url: `/${category.id}/` },
+  ]}
+>
+  <div class="mx-auto max-w-6xl px-4 pb-4 pt-10">
+    <nav class="text-[0.85rem] text-muted" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true"> › </span>
+      <span aria-current="page" class="text-ink-soft">{category.data.name}</span>
+    </nav>
+
+    <header class="mt-6 max-w-3xl">
+      <h1 class="font-display text-[clamp(2.1rem,5vw,3.2rem)] font-semibold leading-[1.12] tracking-tight text-ink" style="text-wrap: balance;">
+        {category.data.name} for Renters
+      </h1>
+      <p class="mt-3 text-[1.08rem] leading-relaxed text-muted">{category.data.tagline}</p>
+    </header>
+
+    <div class="article-body mt-6">
+      <Content />
+    </div>
+
+    {pillar && (
+      <section class="mt-10" aria-label="Featured guide">
+        <h2 class="font-display text-[clamp(1.5rem,3vw,1.9rem)] font-semibold text-ink">Start with the complete guide</h2>
+        <div class="mt-5 max-w-2xl">
+          <ArticleCard article={pillar} />
+        </div>
+      </section>
+    )}
+
+    {supporting.length > 0 && (
+      <section class="mt-10" aria-label="More guides">
+        <h2 class="font-display text-[clamp(1.5rem,3vw,1.9rem)] font-semibold text-ink">More {category.data.name.toLowerCase()} guides</h2>
+        <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {supporting.map((article) => (
+            <ArticleCard article={article} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="mt-12 rounded-2xl border border-line bg-surface p-6" aria-label="Quick solutions">
+      <h2 class="font-display text-[1.4rem] font-semibold text-ink">5 quick wins in this room</h2>
+      <ol class="mt-4 list-decimal space-y-2 pl-5 text-[0.98rem] leading-relaxed text-ink-soft">
+        {category.data.quickSolutions.map((solution) => (
+          <li>{solution}</li>
+        ))}
+      </ol>
+    </section>
+
+    {category.data.faq.length > 0 && (
+      <section class="mt-10" aria-label="Frequently asked questions">
+        <h2 class="font-display text-[clamp(1.5rem,3vw,1.9rem)] font-semibold text-ink">Common questions</h2>
+        <div class="mt-4 space-y-3">
+          {category.data.faq.map((item) => (
+            <details class="rounded-xl border border-line bg-surface px-5 py-4">
+              <summary class="cursor-pointer font-semibold text-ink">{item.q}</summary>
+              <p class="mt-2 text-[0.98rem] leading-relaxed text-ink-soft">{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <p class="mt-10 text-[0.98rem]">
+      Looking for the methods behind these fixes?
+      <a href="/renter-friendly-solutions/" class="font-semibold"> See renter-friendly solutions →</a>
+      {relatedCategorySlug !== 'renter-friendly-solutions' && (
+        <>
+          {' '}Or browse <a href={`/${relatedCategorySlug}/`} class="font-semibold">{CATEGORY_LABELS[relatedCategorySlug]}</a>.
+        </>
+      )}
+    </p>
+  </div>
+</BaseLayout>

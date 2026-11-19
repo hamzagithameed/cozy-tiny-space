@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../utils/site';
+---
+
+<BaseLayout
+  title="Disclaimer"
+  description="Disclaimer for Cozy Tiny Space — general information, approximate measurements and product limits, and rental rules."
+  canonicalPath="/disclaimer/"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Disclaimer', url: '/disclaimer/' },
+  ]}
+>
+  <div class="mx-auto max-w-3xl px-4 pb-4 pt-10">
+    <h1 class="font-display text-[clamp(2rem,5vw,3rem)] font-semibold tracking-tight text-ink">Disclaimer</h1>
+    <p class="mt-2 text-[0.9rem] text-muted">Last updated: November 19, 2026</p>
+    <div class="article-body mt-6">
+      <h2>General information</h2>
+      <p>
+        The content on Cozy Tiny Space is provided for general information
+        only. It is based on research, product documentation and general
+        knowledge of rental living. It is not professional advice — legal,
+        financial, or otherwise.
+      </p>
+      <h2>Measurements and product information</h2>
+      <p>
+        Dimensions, weight limits, prices and product availability are
+        approximate and change over time. Always measure your own space and
+        check the manufacturer's current specifications before buying or
+        installing anything. A product that fits one rental may not fit yours.
+      </p>
+      <h2>Rental rules and your lease</h2>
+      <p>
+        Every lease is different. "Renter-friendly" and "damage-free" in our
+        guides mean the method is designed to avoid permanent changes — not
+        that your lease allows it. Always check your lease and, when in doubt,
+        ask your landlord or property manager before installing anything,
+        including adhesive products. We are not responsible for lost deposits,
+        wall damage or lease disputes.
+      </p>
+      <h2>Weight limits and safety</h2>
+      <p>
+        Adhesive hooks, tension rods and removable shelves have real weight
+        limits that depend on the surface, humidity, temperature and how the
+        product was installed. Never hang heavy, valuable or breakable items
+        above beds, seating or walkways, and never exceed the manufacturer's
+        stated limit. Test every installation with a light load first.
+      </p>
+      <h2>Affiliate and advertising</h2>
+      <p>
+        This site currently contains no affiliate links. Product names appear
+        as suggestions, not endorsements. See the
+        <a href="/affiliate-disclosure/"> Affiliate Disclosure</a> for the
+        current position.
+      </p>
+      <h2>External links</h2>
+      <p>
+        We link to third-party websites for reference. We do not control their
+        content and are not responsible for it.
+      </p>
+      <h2>Contact</h2>
+      <p>
+        Questions: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+import SEO, { type Breadcrumb, type FaqItem } from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../utils/site';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedDate?: Date;
+  updatedDate?: Date;
+  authorName?: string;
+  faq?: FaqItem[];
+  breadcrumbs?: Breadcrumb[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = '/',
+  image,
+  type = 'website',
+  publishedDate,
+  updatedDate,
+  authorName,
+  faq,
+  breadcrumbs,
+  noindex = false,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <SEO
+      title={title}
+      description={description}
+      canonicalPath={canonicalPath}
+      image={image}
+      type={type}
+      publishedDate={publishedDate}
+      updatedDate={updatedDate}
+      authorName={authorName}
+      faq={faq}
+      breadcrumbs={breadcrumbs}
+      noindex={noindex}
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="author" content="Hamza Hameed" />
+    <meta name="theme-color" content="#faf7f1" />
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
+    >
+      Skip to content
+    </a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

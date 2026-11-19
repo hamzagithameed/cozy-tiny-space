@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  author: CollectionEntry<'authors'>;
+}
+const { author } = Astro.props;
+const { data } = author;
+---
+
+<aside class="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6 sm:flex-row sm:items-start" aria-label="About the author">
+  <a href={`/authors/${author.id}/`} class="shrink-0">
+    <img
+      src={data.avatar}
+      alt={`Photo of ${data.name}`}
+      width="96"
+      height="96"
+      loading="lazy"
+      decoding="async"
+      class="h-24 w-24 rounded-full border border-line object-cover"
+    />
+  </a>
+  <div>
+    <p class="text-[0.72rem] font-semibold uppercase tracking-[0.12em] text-muted">Written by</p>
+    <p class="mt-1 font-display text-xl font-semibold text-ink">
+      <a href={`/authors/${author.id}/`} class="no-underline hover:text-accent-dark">{data.name}</a>
+    </p>
+    <p class="text-[0.9rem] font-medium text-accent-dark">{data.role}</p>
+    <p class="mt-2 text-[0.95rem] leading-relaxed text-ink-soft">{data.bio}</p>
+    <p class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-[0.88rem]">
+      {data.website && (
+        <a href={data.website} target="_blank" rel="noopener">Outfit Edits</a>
+      )}
+      {data.linkedin && (
+        <a href={data.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+      )}
+      {data.github && (
+        <a href={data.github} target="_blank" rel="noopener">GitHub</a>
+      )}
+      {data.email && <a href={`mailto:${data.email}`}>Email</a>}
+    </p>
+  </div>
+</aside>

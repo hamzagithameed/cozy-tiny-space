@@ -1,0 +1,127 @@
+---
+import { SITE } from '../utils/site';
+
+export interface Breadcrumb {
+  name: string;
+  url: string;
+}
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path, e.g. /kitchen-storage/no-drill-kitchen-storage-for-renters/ */
+  canonicalPath?: string;
+  /** Path in public/, e.g. /images/kitchen-storage/foo.svg */
+  image?: string;
+  type?: 'website' | 'article';
+  publishedDate?: Date;
+  updatedDate?: Date;
+  authorName?: string;
+  faq?: FaqItem[];
+  breadcrumbs?: Breadcrumb[];
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = '/',
+ 
+  image = '/images/og-default.svg',
+  type = 'website',
+  publishedDate,
+  updatedDate,
+  authorName = 'Hamza Hameed',
+  faq,
+  breadcrumbs,
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(canonicalPath, SITE.url).toString();
+const ogImage = new URL(image, SITE.url).toString();
+const pageTitle = canonicalPath === '/' ? `${SITE.name} | ${SITE.tagline}` : `${title} | ${SITE.name}`;
+
+// JSON-LD: BlogPosting on articles, WebSite on the homepage, plus
+// BreadcrumbList and FAQPage where the content supports them.
+const jsonLd: Record<string, unknown>[] = [];
+if (type === 'article') {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description,
+    image: ogImage,
+    author: { '@type': 'Person', name: authorName, url: `${SITE.url}/authors/hamza-hameed/` },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE.name,
+      url: SITE.url,
+    },
+    datePublished: publishedDate?.toISOString(),
+    ...(updatedDate ? { dateModified: updatedDate.toISOString() } : {}),
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+  });
+} else if (canonicalPath === '/') {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+  });
+}
+if (breadcrumbs && breadcrumbs.length > 0) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((b, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: b.name,
+      item: new URL(b.url, SITE.url).toString(),
+    })),
+  });
+}
+if (faq && faq.length > 0) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  });
+}
+---
+
+<title>{pageTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:type" content={type === 'article' ? 'article' : 'website'} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+{type === 'article' && publishedDate && (
+  <meta property="article:published_time" content={publishedDate.toISOString()} />
+)}
+{type === 'article' && updatedDate && (
+  <meta property="article:modified_time" content={updatedDate.toISOString()} />
+)}
+{type === 'article' && <meta property="article:author" content={authorName} />}
+{jsonLd.map((schema) => (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+))}

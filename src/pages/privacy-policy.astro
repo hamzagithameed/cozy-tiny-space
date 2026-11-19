@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../utils/site';
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Privacy Policy for Cozy Tiny Space — what data this site collects, cookies, analytics, advertising and affiliate links."
+  canonicalPath="/privacy-policy/"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Privacy Policy', url: '/privacy-policy/' },
+  ]}
+>
+  <div class="mx-auto max-w-3xl px-4 pb-4 pt-10">
+    <h1 class="font-display text-[clamp(2rem,5vw,3rem)] font-semibold tracking-tight text-ink">Privacy Policy</h1>
+    <p class="mt-2 text-[0.9rem] text-muted">Last updated: November 19, 2026</p>
+    <div class="article-body mt-6">
+      <p>
+        Cozy Tiny Space ("we", "us", "our") is a content website about
+        renter-friendly storage and organization. This policy explains what
+        information we collect and how we use it.
+      </p>
+      <h2>Information we collect</h2>
+      <p>
+        This site does not run user accounts and does not ask you to register.
+        The only personal information you may give us directly is your email
+        address and message if you contact us at
+        <a href={`mailto:${SITE.email}`}> {SITE.email}</a>. We use it only to
+        reply to you. We do not sell, rent or share your email address.
+      </p>
+      <h2>Cookies</h2>
+      <p>
+        This site itself sets no tracking cookies. The newsletter form, if you
+        use it, is handled by our email provider once connected; that provider
+        may set its own cookies under its own policy. Advertising and analytics
+        providers, when added, may use cookies as described below.
+      </p>
+      <h2>Analytics</h2>
+      <p>
+        We use privacy-friendly analytics (Cloudflare Web Analytics and/or
+        Google Analytics) to understand which guides readers find useful. These
+        tools collect aggregated, anonymized usage data such as pages visited,
+        approximate location and device type. They do not identify you personally.
+      </p>
+      <h2>Advertising</h2>
+      <p>
+        This site currently shows no advertisements. When display advertising is
+        added (Google AdSense first, then a premium network), the ad provider
+        and its partners may use cookies to serve ads based on your visits to
+        this and other websites. You can opt out of personalized advertising at
+        any time through your browser settings or the provider's opt-out pages.
+        This policy will be updated when advertising goes live.
+      </p>
+      <h2>Affiliate links</h2>
+      <p>
+        This site currently contains no affiliate links. If affiliate links are
+        added in the future, they will be clearly identified and this policy and
+        the <a href="/affiliate-disclosure/">Affiliate Disclosure</a> will be
+        updated first.
+      </p>
+      <h2>Third-party links</h2>
+      <p>
+        Our articles link to third-party websites (retailers, publishers and
+        manufacturers). We are not responsible for their privacy practices.
+        Please read their policies when you visit them.
+      </p>
+      <h2>Children's privacy</h2>
+      <p>
+        This site is intended for adults. We do not knowingly collect personal
+        information from children under 13.
+      </p>
+      <h2>Changes to this policy</h2>
+      <p>
+        We may update this policy when the site changes — for example when
+        advertising or affiliate links are added. The "Last updated" date above
+        will change, and material changes will be noted here.
+      </p>
+      <h2>Contact</h2>
+      <p>
+        Questions about this policy: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

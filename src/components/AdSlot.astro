@@ -1,0 +1,22 @@
+---
+/**
+ * Reserved, labelled ad slot — no real ad code in v1.
+ * Fixed min-height per breakpoint so a future ad network cannot shift
+ * the layout (CLS). AdSense auto-ads stay OFF; when AdSense is approved,
+ * paste the ad unit into this component behind a single config value.
+ */
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+---
+
+<div
+  class="ad-slot"
+  data-ad-slot={id}
+  role="complementary"
+  aria-label="Advertisement placeholder"
+>
+  Advertisement
+</div>
+<!-- TODO: AdSense — replace this placeholder with the ad unit once approved. -->

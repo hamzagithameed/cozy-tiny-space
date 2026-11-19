@@ -1,0 +1,207 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import { getPublishedArticles, articleUrl } from '../utils/posts';
+import { CATEGORY_LABELS, CATEGORY_ORDER, SITE } from '../utils/site';
+
+const articles = await getPublishedArticles();
+const categories = await getCollection('categories');
+const categoryBySlug = new Map(categories.map((c) => [c.id, c]));
+
+const pillars = CATEGORY_ORDER.map(
+  (slug) => articles.find((a) => a.data.category === slug && a.data.pillar)!,
+).filter(Boolean);
+const latest = articles.slice(0, 6);
+const methodGuides = articles
+  .filter((a) => a.data.category === 'renter-friendly-solutions')
+  .slice(0, 4);
+---
+
+<BaseLayout
+  title="More storage in your small rental — without drilling, damage, or risking your deposit"
+  description={SITE.description}
+  canonicalPath="/"
+>
+  <!-- 1. Hero -->
+  <section class="mx-auto max-w-6xl px-4 pb-10 pt-10 sm:pt-14">
+    <div class="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+      <div>
+        <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-accent">
+          Renter-Friendly Small Space Organization
+        </p>
+        <h1 class="mt-3 font-display text-[clamp(2.4rem,6vw,3.9rem)] font-semibold leading-[1.08] tracking-tight text-ink" style="text-wrap: balance;">
+          More storage in your small rental — without drilling, damage, or risking your deposit.
+        </h1>
+        <p class="mt-4 max-w-xl text-[1.08rem] leading-relaxed text-muted">
+          Practical storage and organization ideas for renters in small apartments.
+          Every solution is removable, every measurement is real, and nothing here
+          puts your deposit at risk.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a
+            href="#browse-by-room"
+            class="rounded-full bg-accent px-6 py-3 font-semibold text-white no-underline transition hover:bg-accent-dark"
+          >
+            Browse by room
+          </a>
+          <a
+            href="/renter-friendly-solutions/"
+            class="rounded-full border border-ink/20 bg-surface px-6 py-3 font-semibold text-ink no-underline transition hover:border-accent hover:text-accent-dark"
+          >
+            No-drill solutions
+          </a>
+        </div>
+        <p class="mt-5 text-[0.88rem] text-muted">
+          {articles.length} in-depth guides · 5 rooms · 0 holes in the wall
+        </p>
+      </div>
+      <div class="card-img overflow-hidden rounded-2xl border border-line">
+        <img
+          src="/images/hero-home.svg"
+          alt="Illustration of a small rental apartment with organized shelves, hooks and storage boxes"
+          width="1600"
+          height="900"
+          fetchpriority="high"
+          decoding="async"
+          class="aspect-[16/9] w-full object-cover"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Browse by room -->
+  <section id="browse-by-room" class="mx-auto max-w-6xl scroll-mt-24 px-4 py-8">
+    <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Browse by room</h2>
+    <p class="mt-1 text-muted">Pick the room, find the fix. Every guide is written for renters.</p>
+    <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {CATEGORY_ORDER.map((slug) => {
+        const cat = categoryBySlug.get(slug);
+        const count = articles.filter((a) => a.data.category === slug).length;
+        return (
+          <a href={`/${slug}/`} class="reveal group block rounded-2xl border border-line bg-surface p-5 no-underline transition hover:border-accent">
+            <div class="card-img overflow-hidden rounded-xl">
+              <img
+                src={`/images/categories/${slug}.svg`}
+                alt={`${CATEGORY_LABELS[slug]} illustration`}
+                width="900"
+                height="1200"
+                loading="lazy"
+                decoding="async"
+                class="aspect-[3/4] w-full object-cover"
+              />
+            </div>
+            <h3 class="mt-4 font-display text-[1.25rem] font-semibold text-ink group-hover:text-accent-dark">
+              {cat?.data.name ?? CATEGORY_LABELS[slug]}
+            </h3>
+            <p class="mt-1 text-[0.95rem] leading-relaxed text-muted">{cat?.data.tagline}</p>
+            <p class="mt-2 text-[0.85rem] font-semibold text-accent-dark">
+              {count} {count === 1 ? 'guide' : 'guides'} →
+            </p>
+          </a>
+        );
+      })}
+      <a href="/before-after/" class="reveal group flex flex-col justify-between rounded-2xl border border-line bg-accent-soft p-5 no-underline transition hover:border-accent">
+        <div>
+          <h3 class="font-display text-[1.25rem] font-semibold text-ink">Before &amp; After Gallery</h3>
+          <p class="mt-1 text-[0.95rem] leading-relaxed text-ink-soft">
+            See what a few removable fixes do to a cluttered counter, closet and bathroom shelf.
+          </p>
+        </div>
+        <p class="mt-4 text-[0.85rem] font-semibold text-accent-dark">View the transformations →</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- 3. Start here — 5 pillars -->
+  {pillars.length > 0 && (
+    <section class="mx-auto max-w-6xl px-4 py-8">
+      <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Start here</h2>
+      <p class="mt-1 text-muted">The complete guide for each room — start with yours.</p>
+      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {pillars.map((article) => (
+          <ArticleCard article={article} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- 4. No-drill essentials -->
+  {methodGuides.length > 0 && (
+    <section class="mx-auto max-w-6xl px-4 py-8">
+      <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">No-drill essentials</h2>
+      <p class="mt-1 text-muted">The methods behind every fix on this site — hooks, rods and shelves that leave no trace.</p>
+      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {methodGuides.map((article) => (
+          <ArticleCard article={article} />
+        ))}
+      </div>
+      <p class="mt-5">
+        <a href="/renter-friendly-solutions/" class="font-semibold">All renter-friendly methods →</a>
+      </p>
+    </section>
+  )}
+
+  <!-- 5. Latest articles -->
+  {latest.length > 0 && (
+    <section class="mx-auto max-w-6xl px-4 py-8">
+      <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Latest articles</h2>
+      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {latest.map((article) => (
+          <ArticleCard article={article} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- 6. Popular problems -->
+  <section class="mx-auto max-w-6xl px-4 py-8">
+    <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">What is your problem?</h2>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="/kitchen-storage/small-apartment-pantry-organization-no-pantry/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">No pantry?</a>
+      <a href="/bedroom-closet-storage/no-closet-bedroom-storage-create-wardrobe/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">No closet?</a>
+      <a href="/bathroom-storage/renter-friendly-bathroom-storage-ideas-tiny-bathrooms/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">Tiny bathroom?</a>
+      <a href="/living-room-entryway-storage/small-apartment-shoe-storage-without-drilling/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">Shoes everywhere?</a>
+      <a href="/living-room-entryway-storage/create-drop-zone-small-rental-no-entryway/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">No entryway?</a>
+      <a href="/renter-friendly-solutions/small-apartment-laundry-storage-solutions-renters/" class="rounded-full border border-line bg-surface px-5 py-2.5 font-medium text-ink no-underline hover:border-accent hover:text-accent-dark">Laundry chaos?</a>
+    </div>
+  </section>
+
+  <!-- 7. Trust strip -->
+  <section class="mx-auto max-w-6xl px-4 py-8">
+    <div class="flex flex-col items-start gap-5 rounded-2xl border border-line bg-surface p-6 sm:flex-row sm:items-center">
+      <a href="/authors/hamza-hameed/" class="shrink-0">
+        <img
+          src="/images/authors/hamza-hameed.webp"
+          alt="Photo of Hamza Hameed"
+          width="80"
+          height="80"
+          loading="lazy"
+          decoding="async"
+          class="h-20 w-20 rounded-full border border-line object-cover"
+        />
+      </a>
+      <div>
+        <p class="font-display text-xl font-semibold text-ink">Written by Hamza Hameed</p>
+        <p class="mt-1 max-w-2xl text-[0.98rem] leading-relaxed text-muted">
+          Frontend developer and founder of Outfit Edits. Every guide on this site is
+          built around real measurements, real weight limits and real rental rules —
+          no drilling, no damage, no lost deposit.
+          <a href="/about/"> More about the site →</a>
+        </p>
+      </div>
+      <a
+        href={SITE.pinterest}
+        target="_blank"
+        rel="noopener"
+        class="shrink-0 rounded-full border border-line bg-paper px-5 py-2.5 font-semibold text-ink no-underline hover:border-accent hover:text-accent-dark sm:ml-auto"
+      >
+        Follow on Pinterest
+      </a>
+    </div>
+    <div class="mt-8">
+      <NewsletterForm />
+    </div>
+  </section>
+</BaseLayout>
