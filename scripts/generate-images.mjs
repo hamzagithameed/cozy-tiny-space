@@ -50,12 +50,12 @@ const ARTICLES = [
   ['small-apartment-entryway-decor-that-adds-storage', 'living-room-entryway-storage', 'Small Apartment Entryway Decor That Adds Storage'],
   ['living-room-storage-ideas-small-rentals-no-built-ins', 'living-room-entryway-storage', 'Living Room Storage Ideas for Small Rentals With No Built-Ins'],
   ['create-drop-zone-small-rental-no-entryway', 'living-room-entryway-storage', 'How to Create a Drop Zone in a Small Rental With No Entryway'],
-  ['no-drill-shelves-apartment-walls-compared', 'renter-friendly-solutions', 'No-Drill Shelves for Apartment Walls: Every Method Compared'],
-  ['tension-rod-storage-ideas-renters', 'renter-friendly-solutions', 'Tension Rod Storage Ideas for Renters Beyond the Curtain'],
-  ['adhesive-hooks-renters-weight-limits-surfaces-removal', 'renter-friendly-solutions', 'Adhesive Hooks for Renters: Weight Limits, Surfaces and Removal'],
-  ['removable-shelves-organizers-damage-free', 'renter-friendly-solutions', 'Removable Shelves and Organizers: What Is Actually Damage-Free?'],
-  ['small-apartment-laundry-storage-solutions-renters', 'renter-friendly-solutions', 'Small Apartment Laundry Storage Solutions for Renters'],
-  ['renters-move-out-storage-checklist-deposit-back', 'renter-friendly-solutions', 'The Renter\u2019s Move-Out Storage Checklist: Getting Your Deposit Back'],
+  ['no-drill-shelves-apartment-walls-compared', 'renter-guides', 'No-Drill Shelves for Apartment Walls: Every Method Compared'],
+  ['tension-rod-storage-ideas-renters', 'renter-guides', 'Tension Rod Storage Ideas for Renters Beyond the Curtain'],
+  ['adhesive-hooks-renters-weight-limits-surfaces-removal', 'renter-guides', 'Adhesive Hooks for Renters: Weight Limits, Surfaces and Removal'],
+  ['removable-shelves-organizers-damage-free', 'renter-guides', 'Removable Shelves and Organizers: What Is Actually Damage-Free?'],
+  ['small-apartment-laundry-storage-solutions-renters', 'renter-guides', 'Small Apartment Laundry Storage Solutions for Renters'],
+  ['renters-move-out-storage-checklist-deposit-back', 'renter-guides', 'The Renter\u2019s Move-Out Storage Checklist: Getting Your Deposit Back'],
 ];
 
 const CATEGORIES = [
@@ -63,7 +63,7 @@ const CATEGORIES = [
   ['bedroom-closet-storage', 'Bedroom & Closet Storage', 'Wardrobes, under-bed storage and clothing organization for small rental bedrooms.'],
   ['bathroom-storage', 'Bathroom Storage', 'No-drill shelves, over-toilet storage and under-sink organization for tiny bathrooms.'],
   ['living-room-entryway-storage', 'Living Room & Entryway Storage', 'Shoe storage, multifunctional furniture and drop zones for small rentals.'],
-  ['renter-friendly-solutions', 'Renter-Friendly Solutions', 'Adhesive hooks, tension rods and removable shelves — the methods behind every fix.'],
+  ['renter-guides', 'Renter-Friendly Solutions', 'Adhesive hooks, tension rods and removable shelves — the methods behind every fix.'],
 ];
 
 const CATEGORY_LABEL = {
@@ -71,7 +71,7 @@ const CATEGORY_LABEL = {
   'bedroom-closet-storage': 'Bedroom & Closet',
   'bathroom-storage': 'Bathroom Storage',
   'living-room-entryway-storage': 'Living Room & Entryway',
-  'renter-friendly-solutions': 'Renter-Friendly Solutions',
+  'renter-guides': 'Renter-Friendly Solutions',
 };
 
 function esc(s) {
@@ -123,7 +123,7 @@ function motif(category) {
       return `<rect x="70" y="60" width="632" height="400" rx="24" ${fW} stroke="${LINE}" stroke-width="3"/>
 <rect x="110" y="230" width="330" height="110" rx="16" ${fW} stroke="${INK}" stroke-width="4"/><rect x="110" y="230" width="330" height="54" rx="16" ${fA} opacity="0.9"/><rect x="140" y="170" width="70" height="60" rx="10" ${fS} stroke="${INK}" stroke-width="4"/><rect x="330" y="170" width="70" height="60" rx="10" ${fS} stroke="${INK}" stroke-width="4"/><line x1="110" y1="340" x2="110" y2="420" ${s}/><line x1="440" y1="340" x2="440" y2="420" ${s}/>
 <rect x="480" y="90" width="180" height="330" rx="10" ${fS} stroke="${INK}" stroke-width="4"/><circle cx="640" cy="200" r="9" ${fA}/><circle cx="640" cy="280" r="9" ${fA}/><path d="M500 350 h140 M500 390 h140" ${a}/><path d="M520 350 l-14 26 h28 z M560 350 l-14 26 h28 z M600 350 l-14 26 h28 z" ${s}/>`;
-    default: // renter-friendly-solutions
+    default: // renter-guides
       return `<rect x="70" y="60" width="632" height="400" rx="24" ${fW} stroke="${LINE}" stroke-width="3"/>
 <circle cx="180" cy="140" r="46" ${fS} stroke="${ACCENT}" stroke-width="4"/><path d="M162 140 l12 12 l24 -26" ${a}/><text x="180" y="230" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="${INK}">no drill</text>
 <line x1="300" y1="140" x2="660" y2="140" ${a}/><circle cx="300" cy="140" r="12" ${fA}/><circle cx="660" cy="140" r="12" ${fA}/><path d="M380 140 v44 M370 140 h20 M380 184 l-13 24 h26 z" ${s}/><path d="M500 140 v44 M490 140 h20 M500 184 l-13 24 h26 z" ${s}/>

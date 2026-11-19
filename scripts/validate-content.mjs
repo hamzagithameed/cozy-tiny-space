@@ -47,12 +47,12 @@ const EXPECTED = [
   ['small-apartment-entryway-decor-that-adds-storage', 'living-room-entryway-storage', false],
   ['living-room-storage-ideas-small-rentals-no-built-ins', 'living-room-entryway-storage', false],
   ['create-drop-zone-small-rental-no-entryway', 'living-room-entryway-storage', false],
-  ['no-drill-shelves-apartment-walls-compared', 'renter-friendly-solutions', true],
-  ['tension-rod-storage-ideas-renters', 'renter-friendly-solutions', false],
-  ['adhesive-hooks-renters-weight-limits-surfaces-removal', 'renter-friendly-solutions', false],
-  ['removable-shelves-organizers-damage-free', 'renter-friendly-solutions', false],
-  ['small-apartment-laundry-storage-solutions-renters', 'renter-friendly-solutions', false],
-  ['renters-move-out-storage-checklist-deposit-back', 'renter-friendly-solutions', false],
+  ['no-drill-shelves-apartment-walls-compared', 'renter-guides', true],
+  ['tension-rod-storage-ideas-renters', 'renter-guides', false],
+  ['adhesive-hooks-renters-weight-limits-surfaces-removal', 'renter-guides', false],
+  ['removable-shelves-organizers-damage-free', 'renter-guides', false],
+  ['small-apartment-laundry-storage-solutions-renters', 'renter-guides', false],
+  ['renters-move-out-storage-checklist-deposit-back', 'renter-guides', false],
 ];
 
 const LABELS = [
@@ -69,7 +69,7 @@ const CORE_PAGES = new Set([
   '/', '/about/', '/contact/', '/privacy-policy/', '/disclaimer/',
   '/affiliate-disclosure/', '/before-after/', '/search/', '/authors/hamza-hameed/',
   '/kitchen-storage/', '/bedroom-closet-storage/', '/bathroom-storage/',
-  '/living-room-entryway-storage/', '/renter-friendly-solutions/',
+  '/living-room-entryway-storage/', '/renter-guides/',
 ]);
 
 const failures = [];
