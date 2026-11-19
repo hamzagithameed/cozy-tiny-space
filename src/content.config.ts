@@ -6,7 +6,7 @@ export const CATEGORIES = [
   'bedroom-closet-storage',
   'bathroom-storage',
   'living-room-entryway-storage',
-  'renter-friendly-solutions',
+  'renter-guides',
 ] as const;
 
 const faqItem = z.object({
@@ -41,8 +41,24 @@ const articles = defineCollection({
     // downloaded). When set, the article shows the Instagram embed with a
     // visible credit line instead of the SVG above. The SVG stays in place
     // for cards, og:image and the Pin-it button (embeds cannot be pinned).
+    // Site policy: embeds are a supplement only — never the article's only
+    // visual evidence, and never a substitute for licensed imagery.
     instagramUrl: z.string().url().optional(),
     instagramCredit: z.string().optional(), // creator handle, e.g. "@infinitidy"
+    // Image licence tracking. Site policy: credit alone is NOT permission.
+    // Every feature image must end up 'own', 'stock' or 'permissioned'
+    // (written licence on file) before the site applies to any ad network.
+    // 'placeholder' = generated SVG stand-in still awaiting a real image.
+    // Run `npm run check-images` for the current licence report.
+    imageLicense: z
+      .enum(['own', 'stock', 'permissioned', 'ai', 'placeholder'])
+      .default('placeholder'),
+    // Visible credit line for the feature image file, when it is not ours.
+    imageCredit: z.string().optional(),
+    // Where the feature image file came from (stock page, creator post...).
+    imageSourceUrl: z.string().url().optional(),
+    // Licence notes — e.g. where the written permission is saved.
+    licenseNotes: z.string().optional(),
     author: z.string().default('hamza-hameed'),
     // Gradual rollout control: draft articles are excluded from pages,
     // listings, sitemap, RSS and search. Ship v1 with draft: false on all
