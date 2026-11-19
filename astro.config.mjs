@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
-// import cloudflare from '@astrojs/cloudflare'; // Removed for static build
+import cloudflare from '@astrojs/cloudflare';
 import keystatic from '@keystatic/astro';
 import react from '@astrojs/react';
 
@@ -15,13 +15,16 @@ export default defineConfig({
   site: 'https://cozytinyspace.pages.dev',
   trailingSlash: 'ignore',
 
-  // Static output for Cloudflare Pages
-  output: 'static',
+  // Hybrid output - allows Keystatic admin panel on server routes
+  output: 'hybrid',
+  adapter: cloudflare({
+    mode: 'directory',
+  }),
 
   integrations: [
     mdx(),
     react(),
-    // keystatic(), // Disabled for static deployment - admin panel via local dev only
+    keystatic(), // Re-enabled for local dev
     // sitemap({ // Temporarily disabled - causing build error
     //   filter: (page) => !page.includes('/search') && !page.includes('/keystatic'),
     // }),
