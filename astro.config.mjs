@@ -17,7 +17,9 @@ export default defineConfig({
 
   // Hybrid output - Static pages + Keystatic admin with Cloudflare adapter
   output: 'hybrid',
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    mode: 'directory',
+  }),
 
   integrations: [
     mdx(),
