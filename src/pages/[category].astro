@@ -42,12 +42,25 @@ const relatedCategorySlug =
       <span aria-current="page" class="text-ink-soft">{category.data.name}</span>
     </nav>
 
-    <header class="mt-6 max-w-3xl">
-      <h1 class="font-display text-[clamp(2.1rem,5vw,3.2rem)] font-semibold leading-[1.12] tracking-tight text-ink" style="text-wrap: balance;">
-        {category.data.name} for Renters
-      </h1>
-      <p class="mt-3 text-[1.08rem] leading-relaxed text-muted">{category.data.tagline}</p>
-    </header>
+    <div class="mt-6 grid items-center gap-8 lg:grid-cols-[1.2fr_1fr]">
+      <header class="max-w-3xl">
+        <h1 class="font-display text-[clamp(2.1rem,5vw,3.2rem)] font-semibold leading-[1.12] tracking-tight text-ink" style="text-wrap: balance;">
+          {category.data.name} for Renters
+        </h1>
+        <p class="mt-3 text-[1.08rem] leading-relaxed text-muted">{category.data.tagline}</p>
+      </header>
+      <div class="overflow-hidden rounded-2xl border border-line">
+        <img
+          src={`/images/categories/${category.data.slug}.webp`}
+          alt={`${category.data.name} in a small rental home`}
+          width="1344"
+          height="1792"
+          fetchpriority="high"
+          decoding="async"
+          class="aspect-[4/3] w-full object-cover"
+        />
+      </div>
+    </div>
 
     <div class="article-body mt-6">
       <Content />
