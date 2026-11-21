@@ -1,9 +1,12 @@
 ---
 /**
- * Reserved, labelled ad slot — no real ad code in v1.
- * Fixed min-height per breakpoint so a future ad network cannot shift
- * the layout (CLS). AdSense auto-ads stay OFF; when AdSense is approved,
- * paste the ad unit into this component behind a single config value.
+ * Ad slot — DISABLED until an ad network approves this site.
+ * Renders nothing at all right now (owner's order, 21 Nov 2026: no
+ * "Advertisement" placeholders may show while there is no approval).
+ * When Journey/AdSense is approved, paste the ad unit into this
+ * component — every placement in the layouts already points here, so
+ * ads switch on in this one file. Keep fixed min-heights per breakpoint
+ * so the network cannot shift the layout (CLS).
  */
 interface Props {
   id: string;
@@ -11,12 +14,4 @@ interface Props {
 const { id } = Astro.props;
 ---
 
-<div
-  class="ad-slot"
-  data-ad-slot={id}
-  role="complementary"
-  aria-label="Advertisement placeholder"
->
-  Advertisement
-</div>
-<!-- TODO: AdSense — replace this placeholder with the ad unit once approved. -->
+{/* Ads disabled — no approval yet. Re-enable here after approval. */}
