@@ -72,6 +72,15 @@ if (type === 'article') {
     name: SITE.name,
     url: SITE.url,
     description: SITE.description,
+    publisher: {
+      '@type': 'Organization',
+      name: SITE.name,
+      url: SITE.url,
+      logo: {
+        '@type': 'ImageObject',
+        url: new URL('/favicon.svg', SITE.url).toString(),
+      },
+    },
   });
 }
 if (breadcrumbs && breadcrumbs.length > 0) {
