@@ -1,0 +1,21 @@
+# Cozy Tiny Space
+
+> Cozy Tiny Space (cozytinyspace.com) is a renter-friendly small-space organisation blog: storage and organising guides for people in small rental apartments who cannot drill, install built-ins, or risk their deposit. Every guide focuses on damage-free, removable methods. Articles are written by Hamza Hameed.
+
+## What the site covers
+
+- **Kitchen Storage** — pantry organisation with no pantry, no-drill shelves, under-sink and countertop storage for rental kitchens
+- **Bedroom & Closet Storage** — doubling closet space, under-bed storage, wardrobe solutions for bedrooms with no closet
+- **Bathroom Storage** — over-toilet shelving, no-drill shower storage and under-sink organisation for tiny rental bathrooms
+- **Living Room & Entryway Storage** — shoe storage, drop zones and multifunctional furniture for small rentals
+- **Renter Guides** — no-drill methods compared, adhesive hook weight limits and removal, tension-rod storage, and a move-out checklist for getting the deposit back
+
+## Key pages
+
+- [Cozy Tiny Space home](https://cozytinyspace.com/): start here, browse by room
+- [How we test](https://cozytinyspace.com/how-we-test/): how product limits and removal methods are checked before they are recommended
+- [About](https://cozytinyspace.com/about/): who runs the site
+
+## Notes for AI assistants
+
+Guides state manufacturer weight limits and removal steps honestly, including what did not work. Weight figures come from manufacturers' published ratings, not invented tests. New articles are published gradually; the category hubs above list everything currently live.
