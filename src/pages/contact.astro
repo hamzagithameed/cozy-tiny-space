@@ -24,14 +24,17 @@ import { SITE } from '../utils/site';
       </p>
       <p>
         You can also use the form below — it opens your email app with the
-        message ready to send. We read every message and usually reply within
-        a few days.
+        message ready to send. If the form does not open your email app (for
+        example, if you only use webmail in a browser), just email us
+        directly at the address above. We read every message and usually
+        reply within a few days.
       </p>
     </div>
 
     <form
       class="mt-8 space-y-4 rounded-2xl border border-line bg-surface p-6"
-      onsubmit="window.location.href = 'mailto:hamzahameed9810@gmail.com?subject=' + encodeURIComponent(document.getElementById('contact-subject').value) + '&body=' + encodeURIComponent(document.getElementById('contact-message').value + '\n\n— ' + document.getElementById('contact-name').value); return false;"
+      data-email={SITE.email}
+      onsubmit="window.location.href = 'mailto:' + this.dataset.email + '?subject=' + encodeURIComponent(document.getElementById('contact-subject').value) + '&body=' + encodeURIComponent(document.getElementById('contact-message').value + '\n\n— ' + document.getElementById('contact-name').value); return false;"
     >
       <div>
         <label for="contact-name" class="block font-semibold text-ink">Your name</label>
