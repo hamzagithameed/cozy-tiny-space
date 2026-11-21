@@ -10,13 +10,35 @@ const articles = await getPublishedArticles();
 const categories = await getCollection('categories');
 const categoryBySlug = new Map(categories.map((c) => [c.data.slug, c]));
 
-const pillars = CATEGORY_ORDER.map(
+// Editor's Picks — the complete guide for each room, chosen by the editor.
+const picks = CATEGORY_ORDER.map(
   (slug) => articles.find((a) => a.data.category === slug && a.data.pillar)!,
 ).filter(Boolean);
-const latest = articles.slice(0, 6);
-const methodGuides = articles
-  .filter((a) => a.data.category === 'renter-guides')
-  .slice(0, 4);
+
+// Latest — newest guides first, at most two per room so one busy
+// category cannot fill the whole row. Nothing repeats across sections.
+const shown = new Set<string>(picks.map((a) => a.id));
+const latest: typeof articles = [];
+const perCategory = new Map<string, number>();
+for (const a of articles) {
+  if (latest.length >= 6) break;
+  if (shown.has(a.id)) continue;
+  const n = perCategory.get(a.data.category) ?? 0;
+  if (n >= 2) continue;
+  perCategory.set(a.data.category, n + 1);
+  latest.push(a);
+  shown.add(a.id);
+}
+
+// One section per room — that room's guides not already shown above.
+// No cap below the room's full set: at 30 guides, every article earns
+// exactly one homepage link.
+const categorySections = CATEGORY_ORDER.map((slug) => {
+  const posts = articles
+    .filter((a) => a.data.category === slug && !shown.has(a.id))
+    .slice(0, 6);
+  return { slug, cat: categoryBySlug.get(slug), posts };
+}).filter((s) => s.posts.length > 0);
 
 const problemChips = [
   { label: 'No closet?', href: '/bedroom-closet-storage/no-closet-bedroom-storage-create-wardrobe/' },
@@ -26,6 +48,43 @@ const problemChips = [
   { label: 'Shoes everywhere?', href: '/living-room-entryway-storage/small-apartment-shoe-storage-without-drilling/' },
   { label: 'No entryway?', href: '/living-room-entryway-storage/create-drop-zone-small-rental-no-entryway/' },
 ];
+
+const faqs = [
+  {
+    q: 'Can you really add storage in a rental without drilling?',
+    a: 'Yes. Tension rods, adhesive systems, over-door racks and freestanding furniture can add a surprising amount of storage without a single hole. Every guide on this site states what the solution hangs on, what it holds, and exactly how it comes off again at move-out.',
+  },
+  {
+    q: 'Will adhesive hooks and shelves damage the paint?',
+    a: 'On the surfaces the makers rate them for — smooth tile, glass, metal, sealed wood and most sound painted walls — and removed following the maker\u2019s instructions, they are designed to come off cleanly. The honest exceptions are textured walls, wallpaper, fresh paint and steamy bathrooms, and the guides flag those cases and name an alternative.',
+  },
+  {
+    q: 'How much weight can no-drill storage actually hold?',
+    a: 'It depends entirely on the product. Small adhesive hooks are rated from under a pound, while the largest strip-based systems are rated into double figures by their makers. Rather than guess, every guide here quotes the manufacturer\u2019s own published rating and says what that means in real items — coats, pans, bottles.',
+  },
+  {
+    q: 'Are the photos on Cozy Tiny Space real homes?',
+    a: 'No — and the site says so openly. The images are AI-generated illustrations, labelled under the main image of every guide. They show the idea, not a test result. The measurements, weight ratings and removal steps in the text come from manufacturer documentation and standard rental rules.',
+  },
+  {
+    q: 'My lease bans adhesives too. Is there anything here for me?',
+    a: 'Yes. Tension rods press between walls, over-door racks hang on the door itself, and freestanding shelves and furniture touch nothing at all. The Renter Guides section compares every method by how it attaches, so you can filter for the ones your lease allows.',
+  },
+  {
+    q: 'Where should a new reader start?',
+    a: 'With the complete guide for your room in Editor\u2019s Picks below — one per room, each covering the whole space. Then use the Renter Guides for the methods themselves: hooks, rods and shelves compared honestly, with their limits stated.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -137,20 +196,34 @@ const problemChips = [
     </div>
   </section>
 
-  <!-- 3. Start here — 5 pillars -->
-  {pillars.length > 0 && (
+  <!-- 3. Editor's Picks — one complete guide per room -->
+  {picks.length > 0 && (
     <section class="mx-auto max-w-6xl px-4 py-10">
-      <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Start here</h2>
-      <p class="mt-1 text-muted">The complete guide for each room — start with yours.</p>
+      <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-accent">Editor's Picks</p>
+      <h2 class="mt-2 font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Start with the complete guide for your room</h2>
+      <p class="mt-1 max-w-2xl text-muted">Five guides, one per room — each covers the whole space end to end. If you read one thing in a room, read its pick.</p>
       <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {pillars.map((article) => (
+        {picks.map((article) => (
           <ArticleCard article={article} />
         ))}
       </div>
     </section>
   )}
 
-  <!-- 4. Browse by room -->
+  <!-- 4. Latest articles -->
+  {latest.length > 0 && (
+    <section class="mx-auto max-w-6xl px-4 py-8">
+      <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-accent">Fresh off the desk</p>
+      <h2 class="mt-2 font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Latest articles</h2>
+      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {latest.map((article) => (
+          <ArticleCard article={article} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- 5. Browse by room -->
   <section id="browse-by-room" class="mx-auto max-w-6xl scroll-mt-24 px-4 py-8">
     <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Browse by room</h2>
     <p class="mt-1 text-muted">Pick the room, find the fix. Every guide is written for renters.</p>
@@ -184,38 +257,27 @@ const problemChips = [
     </div>
   </section>
 
-  <!-- 5. No-drill essentials (method strip) -->
-  {methodGuides.length > 0 && (
+  <!-- 6. One section per room -->
+  {categorySections.map(({ slug, cat, posts }) => (
     <section class="mx-auto max-w-6xl px-4 py-8">
-      <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">No-drill essentials</h2>
-      <p class="mt-1 text-muted">The methods behind every fix on this site — hooks, rods and shelves that leave no trace.</p>
-      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {methodGuides.map((article) => (
+      <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-accent">{CATEGORY_LABELS[slug]}</p>
+      <h2 class="mt-2 font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">{cat?.data.name ?? CATEGORY_LABELS[slug]}</h2>
+      <p class="mt-1 max-w-2xl text-muted">{cat?.data.tagline}</p>
+      <div class={`mt-6 grid gap-6 sm:grid-cols-2 ${posts.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'}`}>
+        {posts.map((article) => (
           <ArticleCard article={article} />
         ))}
       </div>
       <p class="mt-5">
-        <a href="/renter-guides/" class="font-semibold">All renter guides →</a>
+        <a href={`/${slug}/`} class="font-semibold">All {CATEGORY_LABELS[slug].toLowerCase()} guides →</a>
       </p>
     </section>
-  )}
+  ))}
 
-  <!-- 6. Latest articles -->
-  {latest.length > 0 && (
-    <section class="mx-auto max-w-6xl px-4 py-8">
-      <h2 class="font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Latest articles</h2>
-      <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {latest.map((article) => (
-          <ArticleCard article={article} />
-        ))}
-      </div>
-    </section>
-  )}
-
-  <!-- 7. How we test -->
+  <!-- 7. How we research -->
   <section class="mx-auto max-w-6xl px-4 py-8">
     <div class="rounded-2xl border border-line bg-sage-soft p-6 sm:p-8">
-      <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-sage">How we test</p>
+      <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-sage">How we research</p>
       <h2 class="mt-2 font-display text-[clamp(1.5rem,3vw,2rem)] font-semibold text-ink">
         Every weight limit on this site is checked, not copied.
       </h2>
@@ -226,12 +288,27 @@ const problemChips = [
         over its rated weight — the guide says so, and says what to use instead.
       </p>
       <p class="mt-4">
-        <a href="/how-we-test/" class="font-semibold">Read how we evaluate every method →</a>
+        <a href="/how-we-test/" class="font-semibold">Read how we research and verify →</a>
       </p>
     </div>
   </section>
 
-  <!-- 8. Newsletter (dark band) -->
+  <!-- 8. FAQ -->
+  <section class="mx-auto max-w-6xl px-4 py-8">
+    <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-accent">Good questions</p>
+    <h2 class="mt-2 font-display text-[clamp(1.6rem,3.4vw,2.1rem)] font-semibold text-ink">Renter storage, answered honestly</h2>
+    <div class="mt-6 grid gap-5 lg:grid-cols-2">
+      {faqs.map((f) => (
+        <div class="rounded-2xl border border-line bg-surface p-6">
+          <h3 class="font-display text-[1.15rem] font-semibold text-ink">{f.q}</h3>
+          <p class="mt-2 leading-relaxed text-ink-soft">{f.a}</p>
+        </div>
+      ))}
+    </div>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  </section>
+
+  <!-- 9. Newsletter (dark band) -->
   <section class="mt-8 bg-espresso">
     <div class="mx-auto grid max-w-6xl items-center gap-8 px-4 py-12 lg:grid-cols-[1fr_1.1fr]">
       <div>
