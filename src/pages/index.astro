@@ -269,7 +269,7 @@ const faqSchema = {
         ))}
       </div>
       <p class="mt-5">
-        <a href={`/${slug}/`} class="font-semibold">All {CATEGORY_LABELS[slug].toLowerCase()} guides →</a>
+        <a href={`/${slug}/`} class="font-semibold">All {CATEGORY_LABELS[slug].toLowerCase().replace(/ guides$/, '')} guides →</a>
       </p>
     </section>
   ))}
