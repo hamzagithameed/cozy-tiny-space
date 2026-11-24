@@ -7,7 +7,7 @@ export const SITE = {
   description:
     'More storage, better organization, without permanent changes. Practical renter-friendly storage ideas for small apartments — no drilling, no damage, no lost deposit.',
   pinterest: 'https://www.pinterest.com/benstokes32cv/',
-  email: 'hamzahameed9810@gmail.com',
+  email: 'contact@cozytinyspace.com',
 } as const;
 
 export const CATEGORY_LABELS: Record<string, string> = {
