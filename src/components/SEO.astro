@@ -30,7 +30,7 @@ const {
   title,
   description,
   canonicalPath = '/',
- 
+
   image = '/images/hero-home.webp',
   type = 'website',
   publishedDate,
@@ -42,8 +42,19 @@ const {
 } = Astro.props;
 
 const canonical = new URL(canonicalPath, SITE.url).toString();
-const ogImage = new URL(image, SITE.url).toString();
-const pageTitle = canonicalPath === '/' ? `${SITE.name} | ${SITE.tagline}` : `${title} | ${SITE.name}`;
+// Social platforms (Pinterest especially) handle JPG more reliably than
+// WebP, so og/twitter/schema images use a JPG twin of the page image.
+// The displayed page images stay WebP for speed.
+const ogImagePath = image.replace(/\.webp$/, '.jpg');
+const ogImage = new URL(ogImagePath, SITE.url).toString();
+const [ogImageWidth, ogImageHeight] = image.includes('hero-home')
+  ? [1920, 1280]
+  : image.includes('/authors/')
+    ? [400, 400]
+    : [1344, 1792];
+// Article titles stand alone (no brand suffix) so they stay within the
+// ~60 characters Google displays; the suffix remains on hub/static pages.
+const pageTitle = canonicalPath === '/' ? `${SITE.name} | ${SITE.tagline}` : type === 'article' ? title : `${title} | ${SITE.name}`;
 
 // JSON-LD: BlogPosting on articles, WebSite on the homepage, plus
 // BreadcrumbList and FAQPage where the content supports them.
@@ -118,8 +129,9 @@ if (faq && faq.length > 0) {
 <meta property="og:url" content={canonical} />
 <meta property="og:type" content={type === 'article' ? 'article' : 'website'} />
 <meta property="og:image" content={ogImage} />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content={ogImageWidth} />
+<meta property="og:image:height" content={ogImageHeight} />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
