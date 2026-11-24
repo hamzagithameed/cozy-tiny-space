@@ -6,7 +6,7 @@ export const SITE = {
   url: 'https://cozytinyspace.com',
   description:
     'More storage, better organization, without permanent changes. Practical renter-friendly storage ideas for small apartments — no drilling, no damage, no lost deposit.',
-  pinterest: 'https://www.pinterest.com/cozytinyspace/',
+  pinterest: 'https://www.pinterest.com/benstokes32cv/',
   email: 'hamzahameed9810@gmail.com',
 } as const;
 
