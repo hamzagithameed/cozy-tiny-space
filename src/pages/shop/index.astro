@@ -1,0 +1,88 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PRODUCTS } from '../../utils/products';
+import { SITE } from '../../utils/site';
+
+const paid = PRODUCTS.filter((p) => p.price > 0);
+const free = PRODUCTS.filter((p) => p.price === 0);
+---
+
+<BaseLayout
+  title="Shop — Printable Kits for Small Rentals"
+  description="Printable planners and kits from Cozy Tiny Space: document your rental and protect your deposit, plan furniture layouts at true scale, and zone a tiny kitchen. Instant PDF downloads."
+  canonicalPath="/shop/"
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Shop', url: '/shop/' },
+  ]}
+>
+  <div class="mx-auto max-w-6xl px-4 pb-4 pt-10">
+    <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-accent">The {SITE.name} shop</p>
+    <h1 class="mt-2 max-w-3xl font-display text-[clamp(2rem,5vw,3rem)] font-semibold tracking-tight text-ink">
+      Printable kits for small rentals
+    </h1>
+    <p class="mt-3 max-w-3xl text-[1.05rem] leading-relaxed text-muted">
+      The guides on this site, turned into tools you can print and use. Every kit is
+      renter-friendly — no drilling, no damage, no lost deposit — and every one is an
+      instant PDF download. Start with the free cheat sheet, or go straight to the kit
+      that solves your problem.
+    </p>
+
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {paid.map((p) => (
+        <article class="flex flex-col overflow-hidden rounded-2xl border border-line bg-surface">
+          <a href={`/shop/${p.slug}/`} class="block no-underline">
+            <img src={p.cover} alt={p.coverAlt} width="1275" height="1650" loading="lazy" class="aspect-[3/4] w-full object-cover object-top" />
+          </a>
+          <div class="flex flex-1 flex-col p-5">
+            <div class="flex items-start justify-between gap-3">
+              <h2 class="font-display text-[1.25rem] font-semibold leading-snug text-ink">
+                <a href={`/shop/${p.slug}/`} class="text-ink no-underline hover:text-accent-dark">{p.name}</a>
+              </h2>
+              <span class="shrink-0 rounded-full bg-accent-soft px-3 py-1 text-[0.95rem] font-bold text-accent-dark">{p.priceLabel}</span>
+            </div>
+            <p class="mt-2 flex-1 text-[0.95rem] leading-relaxed text-muted">{p.tagline}</p>
+            <p class="mt-3 text-[0.8rem] font-medium uppercase tracking-[0.08em] text-muted">{p.pages} · PDF</p>
+            <a href={`/shop/${p.slug}/`} class="mt-4 inline-block rounded-full bg-accent px-5 py-2.5 text-center text-[0.95rem] font-semibold text-white no-underline hover:bg-accent-dark">
+              See what's inside
+            </a>
+          </div>
+        </article>
+      ))}
+
+      {free.map((p) => (
+        <article class="flex flex-col overflow-hidden rounded-2xl border-2 border-accent bg-surface">
+          <a href={`/shop/${p.slug}/`} class="block no-underline">
+            <img src={p.cover} alt={p.coverAlt} width="1275" height="1650" loading="lazy" class="aspect-[3/4] w-full object-cover object-top" />
+          </a>
+          <div class="flex flex-1 flex-col p-5">
+            <div class="flex items-start justify-between gap-3">
+              <h2 class="font-display text-[1.25rem] font-semibold leading-snug text-ink">
+                <a href={`/shop/${p.slug}/`} class="text-ink no-underline hover:text-accent-dark">{p.name}</a>
+              </h2>
+              <span class="shrink-0 rounded-full bg-accent px-3 py-1 text-[0.95rem] font-bold text-white">FREE</span>
+            </div>
+            <p class="mt-2 flex-1 text-[0.95rem] leading-relaxed text-muted">{p.tagline}</p>
+            <p class="mt-3 text-[0.8rem] font-medium uppercase tracking-[0.08em] text-muted">{p.pages} · PDF</p>
+            <a href={`/shop/${p.slug}/`} class="mt-4 inline-block rounded-full bg-accent px-5 py-2.5 text-center text-[0.95rem] font-semibold text-white no-underline hover:bg-accent-dark">
+              Get it free
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <section class="mt-12 rounded-2xl bg-accent-soft p-6 sm:p-8">
+      <h2 class="font-display text-[1.4rem] font-semibold text-ink">How buying works</h2>
+      <ol class="mt-3 list-decimal space-y-2 pl-5 leading-relaxed text-ink-soft">
+        <li>Pick a kit and tap the buy button — checkout is handled securely by Gumroad.</li>
+        <li>Your PDF is available to download the moment checkout finishes. No shipping, no waiting.</li>
+        <li>Print at home or at a copy shop, as many copies as you need for your own home.</li>
+      </ol>
+      <p class="mt-3 leading-relaxed text-ink-soft">
+        Questions about a kit before you buy? Email
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and we'll help you pick the right one.
+      </p>
+    </section>
+  </div>
+</BaseLayout>

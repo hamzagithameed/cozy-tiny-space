@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { PRODUCTS, type Product } from '../../utils/products';
+import { SITE } from '../../utils/site';
+
+export function getStaticPaths() {
+  return PRODUCTS.map((p) => ({ params: { slug: p.slug }, props: { product: p } }));
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product: p } = Astro.props;
+const others = PRODUCTS.filter((x) => x.slug !== p.slug);
+const ctaLabel = p.price === 0 ? 'Download it free on Gumroad' : `Get it on Gumroad — ${p.priceLabel}`;
+---
+
+<BaseLayout
+  title={`${p.name} — Printable Kit`}
+  description={p.tagline}
+  canonicalPath={`/shop/${p.slug}/`}
+  image={p.cover}
+  faq={p.faqs}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Shop', url: '/shop/' },
+    { name: p.name, url: `/shop/${p.slug}/` },
+  ]}
+>
+  <div class="mx-auto max-w-6xl px-4 pb-4 pt-10">
+    <nav aria-label="Breadcrumb" class="text-[0.85rem] text-muted">
+      <a href="/" class="no-underline hover:text-accent-dark">Home</a>
+      <span aria-hidden="true"> / </span>
+      <a href="/shop/" class="no-underline hover:text-accent-dark">Shop</a>
+      <span aria-hidden="true"> / </span>
+      <span class="text-ink-soft">{p.name}</span>
+    </nav>
+
+    <div class="mt-6 grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+      <div>
+        <img
+          src={p.cover}
+          alt={p.coverAlt}
+          width="1275"
+          height="1650"
+          class="w-full rounded-2xl border border-line bg-surface object-cover object-top shadow-sm"
+        />
+        <p class="mt-3 text-center text-[0.85rem] text-muted">{p.format} · {p.pages} · Instant download</p>
+      </div>
+
+      <div>
+        <p class="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-accent">
+          {p.price === 0 ? 'Free download' : 'Printable kit'} · {SITE.name}
+        </p>
+        <h1 class="mt-2 font-display text-[clamp(1.9rem,4.5vw,2.7rem)] font-semibold leading-tight tracking-tight text-ink">
+          {p.name}
+        </h1>
+        <p class="mt-3 text-[1.05rem] leading-relaxed text-muted">{p.tagline}</p>
+
+        <div class="mt-6 rounded-2xl border border-line bg-surface p-5">
+          <div class="flex items-center justify-between gap-4">
+            <span class="font-display text-[2rem] font-semibold text-ink">{p.priceLabel}</span>
+            <span class="text-[0.85rem] text-muted">{p.pages} · PDF</span>
+          </div>
+          <a
+            href={p.gumroadUrl}
+            target="_blank"
+            rel="noopener"
+            class="mt-4 block rounded-full bg-accent px-6 py-3 text-center text-[1.05rem] font-semibold text-white no-underline hover:bg-accent-dark"
+          >
+            {ctaLabel}
+          </a>
+          <ul class="mt-4 space-y-1.5 text-[0.9rem] text-ink-soft">
+            <li>Secure checkout via Gumroad — your file is ready the moment you finish.</li>
+            <li>Print at home or a copy shop; reprint any page whenever you need it.</li>
+            <li>Made for renters: nothing to install, nothing permanent.</li>
+          </ul>
+        </div>
+
+        <h2 class="mt-8 font-display text-[1.4rem] font-semibold text-ink">Who it's for</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-ink-soft">
+          {p.whoFor.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <section class="mx-auto mt-12 max-w-3xl">
+      <h2 class="font-display text-[1.5rem] font-semibold text-ink">What's inside</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-ink-soft">
+        {p.whatsInside.map((item) => <li>{item}</li>)}
+      </ul>
+
+      <h2 class="mt-10 font-display text-[1.5rem] font-semibold text-ink">Questions</h2>
+      <div class="mt-3 space-y-3">
+        {p.faqs.map((f) => (
+          <details class="rounded-xl border border-line bg-surface px-5 py-4">
+            <summary class="cursor-pointer font-semibold text-ink">{f.q}</summary>
+            <p class="mt-2 leading-relaxed text-ink-soft">{f.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <h2 class="mt-10 font-display text-[1.5rem] font-semibold text-ink">Keep reading</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 leading-relaxed text-ink-soft">
+        {p.related.map((r) => (
+          <li><a href={r.href}>{r.label}</a></li>
+        ))}
+      </ul>
+
+      <div class="mt-10 rounded-2xl bg-accent-soft p-6">
+        <h2 class="font-display text-[1.3rem] font-semibold text-ink">More from the shop</h2>
+        <ul class="mt-3 space-y-2 leading-relaxed text-ink-soft">
+          {others.map((o) => (
+            <li>
+              <a href={`/shop/${o.slug}/`} class="font-medium">{o.name}</a>
+              <span class="text-muted"> — {o.priceLabel}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
