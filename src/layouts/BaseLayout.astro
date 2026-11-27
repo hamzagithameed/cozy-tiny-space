@@ -5,7 +5,7 @@ import '@fontsource/public-sans/400.css';
 import '@fontsource/public-sans/500.css';
 import '@fontsource/public-sans/600.css';
 import '@fontsource/public-sans/700.css';
-import SEO, { type Breadcrumb, type FaqItem } from '../components/SEO.astro';
+import SEO, { type Breadcrumb, type FaqItem, type ProductSchema } from '../components/SEO.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../utils/site';
@@ -22,6 +22,8 @@ interface Props {
   faq?: FaqItem[];
   breadcrumbs?: Breadcrumb[];
   noindex?: boolean;
+  bareTitle?: boolean;
+  product?: ProductSchema;
 }
 
 const {
@@ -36,6 +38,8 @@ const {
   faq,
   breadcrumbs,
   noindex = false,
+  bareTitle = false,
+  product,
 } = Astro.props;
 ---
 
@@ -57,6 +61,8 @@ const {
       faq={faq}
       breadcrumbs={breadcrumbs}
       noindex={noindex}
+      bareTitle={bareTitle}
+      product={product}
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="author" content="Hamza Hameed" />

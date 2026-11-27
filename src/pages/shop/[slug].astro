@@ -17,11 +17,13 @@ const ctaLabel = p.price === 0 ? 'Download it free on Gumroad' : `Get it on Gumr
 ---
 
 <BaseLayout
-  title={`${p.name} — Printable Kit`}
+  title={p.name}
+  bareTitle
   description={p.tagline}
   canonicalPath={`/shop/${p.slug}/`}
   image={p.cover}
   faq={p.faqs}
+  product={{ name: p.name, description: p.tagline, price: p.price, url: p.gumroadUrl }}
   breadcrumbs={[
     { name: 'Home', url: '/' },
     { name: 'Shop', url: '/shop/' },

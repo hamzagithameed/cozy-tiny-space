@@ -16,7 +16,7 @@ const articles = (await getPublishedArticles()).filter((a) => a.data.author === 
 ---
 
 <BaseLayout
-  title={`${author.data.name} — ${author.data.role}`}
+  title={`${author.data.name} — ${author.data.role.split(' (')[0]}`}
   description={author.data.bio}
   canonicalPath={`/authors/${authorSlug}/`}
   image={author.data.avatar}
